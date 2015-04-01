@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SummaryActivity"
+            android:label="" >
+        </activity>
+        <activity
+            android:name=".AddActivity"
+            android:label="" >
+        </activity>
+        <activity
+            android:name=".TravelModeActivity"
+            android:label="" >
+        </activity>
     </application>
 
 </manifest>

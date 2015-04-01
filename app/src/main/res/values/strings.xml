@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!--Buttons:-->
+    <string name="summary_button">Summary</string>
+    <string name="add_button">Add</string>
+    <string name="travel_mode_button">Travel Mode</string>
 </resources>

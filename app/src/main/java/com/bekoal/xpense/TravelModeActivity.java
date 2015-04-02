@@ -1,6 +1,13 @@
 package com.bekoal.xpense;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +17,16 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.bekoal.xpense.service.TravelModeCommands;
+import com.bekoal.xpense.service.TravelModeService;
+
 public class TravelModeActivity extends ActionBarActivity {
+
+    private ServiceConnection _serviceConn = null;
+
+    private TravelModeService _service = null;
+
+    private BroadcastReceiver _receiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +59,33 @@ public class TravelModeActivity extends ActionBarActivity {
         });
 
 
+
+        _receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String data = intent.getStringExtra(TravelModeCommands.TEST_CONNECTION);
+                Toast.makeText(TravelModeActivity.this.getApplicationContext(), data, Toast.LENGTH_LONG).show();
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(_receiver,
+            new IntentFilter(TravelModeCommands.TEST_CONNECTION));
+
+//        _serviceConn = new ServiceConnection() {
+//            @Override
+//            public void onServiceConnected(ComponentName name, IBinder service) {
+//                _service = ((TravelModeService.TravelModeBinder)service).getService();
+//            }
+//
+//            @Override
+//            public void onServiceDisconnected(ComponentName name) {
+//                _service = null;
+//            }
+//        };
+//
+//        bindService(new Intent(this, TravelModeService.class), _serviceConn, BIND_AUTO_CREATE);
+
+
     }
 
     // When a user interacts with the checkbox:
@@ -50,19 +93,30 @@ public class TravelModeActivity extends ActionBarActivity {
         boolean isChecked = ((CheckBox) view).isChecked();
         if (view.getId() == R.id.summary_checkbox) {
             if (isChecked) {
-                Toast travelToastCheck = Toast.makeText(getApplicationContext(),
-                        "This did absolutely nothing.... for now....",
-                        Toast.LENGTH_LONG);
-                travelToastCheck.show();
+//                Toast travelToastCheck = Toast.makeText(getApplicationContext(),
+//                        "This did absolutely nothing.... for now....",
+//                        Toast.LENGTH_LONG);
+//                travelToastCheck.show();
+                StartTravelMode();
             } else {
-                Toast travelToastUncheck = Toast.makeText(getApplicationContext(),
-                        "You just undid absolutely nothing... for now ...",
-                        Toast.LENGTH_LONG);
-                travelToastUncheck.show();
+//                Toast travelToastUncheck = Toast.makeText(getApplicationContext(),
+//                        "You just undid absolutely nothing... for now ...",
+//                        Toast.LENGTH_LONG);
+//                travelToastUncheck.show();
             }
         }
 
     }
+
+    private void StartTravelMode()
+    {
+        Intent intent = new Intent(this, TravelModeService.class);
+        intent.putExtra(TravelModeCommands.TEST_CONNECTION, "Message Sent to Service aaaaand ");
+
+//        _service.sendBroadcast(intent);
+        startService(intent);
+    }
+
 
 
     @Override

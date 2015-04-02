@@ -52,19 +52,19 @@ public class MainActivity extends ActionBarActivity {
 
         startService(new Intent(this, TravelModeService.class));
 
-        _serviceConn = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                _service = ((TravelModeService.TravelModeBinder)service).getService();
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                _service = null;
-            }
-        };
-
-        bindService(new Intent(this, TravelModeService.class), _serviceConn, BIND_AUTO_CREATE);
+//        _serviceConn = new ServiceConnection() {
+//            @Override
+//            public void onServiceConnected(ComponentName name, IBinder service) {
+//                _service = ((TravelModeService.TravelModeBinder)service).getService();
+//            }
+//
+//            @Override
+//            public void onServiceDisconnected(ComponentName name) {
+//                _service = null;
+//            }
+//        };
+//
+//        bindService(new Intent(this, TravelModeService.class), _serviceConn, BIND_AUTO_CREATE);
     }
 
 

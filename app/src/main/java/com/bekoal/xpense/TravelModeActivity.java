@@ -7,13 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class TravelModeActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_travel);
 
         // Create buttons
         final Button summaryButton = (Button) findViewById(R.id.summary_button);
@@ -39,6 +41,27 @@ public class TravelModeActivity extends ActionBarActivity {
                 // Dummy button, does nothing
             }
         });
+
+
+    }
+
+    // When a user interacts with the checkbox:
+    public void onCheckBoxClicked(View view) {
+        boolean isChecked = ((CheckBox) view).isChecked();
+        if (view.getId() == R.id.summary_checkbox) {
+            if (isChecked) {
+                Toast travelToastCheck = Toast.makeText(getApplicationContext(),
+                        "This did absolutely nothing.... for now....",
+                        Toast.LENGTH_LONG);
+                travelToastCheck.show();
+            } else {
+                Toast travelToastUncheck = Toast.makeText(getApplicationContext(),
+                        "You just undid absolutely nothing... for now ...",
+                        Toast.LENGTH_LONG);
+                travelToastUncheck.show();
+            }
+        }
+
     }
 
 

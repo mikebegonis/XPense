@@ -4,6 +4,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!--TextViews-->
+    <string name="main_string">Main:</string>
+    <string name="main_temp">Some sort of welcome maybe?</string>
+
+    <string name="summary_string">Summary:</string>
+    <string name="summary_temp_string">Here we allow a user to select a trip to view expenses from</string>
+
+    <string name="add_string">Add:</string>
+    <string name="add_temp">Interface to add a new trip/expense</string>
+
+    <string name="travel_mode_string">Travel Mode:</string>
+    <string name="travel_mode_prompt_string">Activate Travel Mode:</string>
+
+
     <!--Buttons:-->
     <string name="summary_button">Summary</string>
     <string name="add_button">Add</string>

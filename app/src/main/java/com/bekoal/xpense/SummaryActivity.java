@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 
-public class MainActivity extends ActionBarActivity {
+public class SummaryActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,21 +22,20 @@ public class MainActivity extends ActionBarActivity {
 
         summaryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
-                startActivity(intent);
+                // Dummy button, does nothing
             }
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                Intent intent = new Intent(SummaryActivity.this, AddActivity.class);
                 startActivity(intent);
             }
         });
 
         travelModeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TravelModeActivity.class);
+                Intent intent = new Intent(SummaryActivity.this, TravelModeActivity.class);
                 startActivity(intent);
             }
         });

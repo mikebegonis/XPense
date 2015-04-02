@@ -1,12 +1,22 @@
 package com.bekoal.xpense.service;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Binder;
 import android.os.IBinder;
 
-public class TravelModeService extends Service {
+public class TravelModeService extends IntentService {
+
     public TravelModeService() {
+        super("TravelModeService");
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        // get data from intent
+        // handle data
     }
 
     @Override

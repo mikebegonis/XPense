@@ -1,6 +1,9 @@
 package com.bekoal.xpense;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,7 +11,13 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 
+import com.bekoal.xpense.service.TravelModeService;
+
 public class MainActivity extends ActionBarActivity {
+
+    private ServiceConnection _serviceConn = null;
+
+    private TravelModeService _service = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,24 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
+        startService(new Intent(this, TravelModeService.class));
+
+        _serviceConn = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                _service = ((TravelModeService.TravelModeBinder)service).getService();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                _service = null;
+            }
+        };
+
+        bindService(new Intent(this, TravelModeService.class), _serviceConn, BIND_AUTO_CREATE);
+
+
     }
 
 

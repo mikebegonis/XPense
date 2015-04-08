@@ -68,8 +68,19 @@ public class TravelModeActivity extends ActionBarActivity {
             }
         };
 
+        BroadcastReceiver _queryReciever = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String data = intent.getStringExtra(TravelModeCommands.EXECUTE_QUERY);
+                Toast.makeText(TravelModeActivity.this.getApplicationContext(), data, Toast.LENGTH_LONG).show();
+            }
+        };
+
         LocalBroadcastManager.getInstance(this).registerReceiver(_receiver,
             new IntentFilter(TravelModeCommands.TEST_CONNECTION));
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(_queryReciever,
+                new IntentFilter(TravelModeCommands.EXECUTE_QUERY));
 
 //        _serviceConn = new ServiceConnection() {
 //            @Override
@@ -111,10 +122,14 @@ public class TravelModeActivity extends ActionBarActivity {
     private void StartTravelMode()
     {
         Intent intent = new Intent(this, TravelModeService.class);
-        intent.putExtra(TravelModeCommands.TEST_CONNECTION, "Message Sent to Service aaaaand ");
-
-//        _service.sendBroadcast(intent);
+        intent.putExtra(TravelModeCommands.EXECUTE_QUERY, "SELECT * FROM Expenses");
         startService(intent);
+
+//        Intent intent = new Intent(this, TravelModeService.class);
+//        intent.putExtra(TravelModeCommands.TEST_CONNECTION, "Message Sent to Service aaaaand ");
+//
+////        _service.sendBroadcast(intent);
+//        startService(intent);
     }
 
 

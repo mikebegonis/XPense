@@ -1,5 +1,6 @@
 package com.bekoal.xpense;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Build;
@@ -18,8 +19,9 @@ import android.app.ListFragment;
 public class SummaryFragment extends ListFragment {
 
     TripAdapter mAdapter;
-    private static final String[] TRIPS = { "Trip 1", "Trip 2", "Trip 3" };
+    private static final String[] TRIPS = { "Sample Trip 1", "Sample Trip 2", "Sample Trip 3" };
 
+//    Tim's code:
 //    mAdapter = new TripAdapter(getApplicationContext());
 //    setListAdapter(mAdapter);
 

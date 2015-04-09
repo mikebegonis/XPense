@@ -2,10 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/feed_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/summary_temp_string" />
+    <!-- This file is not actually used atm as the list was dynamically generated -->
 
 </ScrollView>

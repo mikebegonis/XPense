@@ -47,7 +47,7 @@ public class Trip {
     Trip(Intent intent) {
         mTitle = intent.getStringExtra(Trip.TITLE);
         mStatus = Status.valueOf(intent.getStringExtra(Trip.STATUS));
-        mTotal = intent.getStringExtra(Trip.TOTAL);
+//        mTotal = intent.getStringExtra(Trip.TOTAL); // FIXME
         try {
             mStartDate = Trip.DATE_FORMAT.parse(intent.getStringExtra(Trip.START_DATE));
             mEndDate = Trip.DATE_FORMAT.parse(intent.getStringExtra(Trip.END_DATE));

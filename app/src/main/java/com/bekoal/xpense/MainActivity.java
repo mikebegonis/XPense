@@ -1,5 +1,7 @@
 package com.bekoal.xpense;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,10 +12,23 @@ import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
 
+    private AddFragment mAddFragment;
+    private SummaryFragment mSummaryFragment;
+    private TravelModeFragment mTravelModeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
+
+        // Default to the summary fragment
+        mSummaryFragment = new SummaryFragment();
+
+        FragmentManager fManager = getFragmentManager();
+
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fTransaction.add(R.id.fragment_container, mSummaryFragment);
+        fTransaction.commit();
 
         // Create buttons
         final Button summaryButton = (Button) findViewById(R.id.summary_button);
@@ -22,22 +37,22 @@ public class MainActivity extends ActionBarActivity {
 
         summaryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
+                //startActivity(intent);
             }
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                //startActivity(intent);
             }
         });
 
         travelModeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TravelModeActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, TravelModeActivity.class);
+                //startActivity(intent);
             }
         });
     }

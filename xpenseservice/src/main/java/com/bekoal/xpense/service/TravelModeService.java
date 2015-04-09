@@ -12,6 +12,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 
 import java.io.File;
@@ -19,6 +21,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TravelModeService extends IntentService {
 
@@ -41,7 +45,7 @@ public class TravelModeService extends IntentService {
             "`Type` TEXT " +
             ");";
 
-    private static final String INSERT_EXPENSE = "INSERT INTO `Expenses` VALUES ('9/28/1992 03:25:02 PM',69.69,'Porn',NULL,'PornHub',NULL,1,NULL,'Personal');";
+
 
     private DatabaseHandler dbHandler = null;
 
@@ -83,10 +87,23 @@ public class TravelModeService extends IntentService {
         {
             Cursor c = database.rawQuery(data, null);
 
-            c.moveToNext();
-            data = c.getString(c.getColumnIndex("Date")) + "   ";
-            data += "$" + c.getDouble(c.getColumnIndex("Amount")) + "    ";
-            data += c.getString(c.getColumnIndex("Description"));
+            ArrayList<QueryResult> list = new ArrayList<QueryResult>();
+
+            while(c.moveToNext())
+            {
+                String[] arr = new String[c.getColumnCount()];
+                for(int i = 0 ; i < c.getColumnCount() ; ++i)
+                {
+                    arr[i] = c.getString(i);
+                }
+                list.add(new QueryResult(arr));
+            }
+
+
+//            c.moveToNext();
+//            data = c.getString(c.getColumnIndex("Date")) + "   ";
+//            data += "$" + c.getDouble(c.getColumnIndex("Amount")) + "    ";
+//            data += c.getString(c.getColumnIndex("Description"));
 
 
 
@@ -99,9 +116,14 @@ public class TravelModeService extends IntentService {
             Intent response = new Intent(TravelModeCommands.EXECUTE_QUERY);
             response.putExtra(TravelModeCommands.EXECUTE_QUERY, data);
 
+            response.putParcelableArrayListExtra(TravelModeCommands.EXECUTE_QUERY, list);
 
 
             LocalBroadcastManager.getInstance(this).sendBroadcast(response);
+        }
+        else if((data = intent.getStringExtra(TravelModeCommands.EXECUTE_QUERY)) != null)
+        {
+            database.execSQL(data);
         }
 
     }
@@ -249,3 +271,10 @@ public class TravelModeService extends IntentService {
 
 
 }
+
+
+
+
+
+
+

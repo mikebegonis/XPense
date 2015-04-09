@@ -8,4 +8,7 @@ public class TravelModeCommands
     public static final String TEST_CONNECTION = "TEST_CONNECTION";
 
     public static final String EXECUTE_QUERY = "EXECUTE_QUERY";
+
+    public static final String EXECUTE_INSERT = "EXECUTE_INSERT";
+
 }

@@ -1,52 +1,78 @@
 package com.bekoal.xpense;
 
+<<<<<<< HEAD
 import android.content.ComponentName;
+=======
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+>>>>>>> origin/master
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.bekoal.xpense.service.TravelModeService;
 
 public class MainActivity extends ActionBarActivity {
 
+<<<<<<< HEAD
     private ServiceConnection _serviceConn = null;
 
     private TravelModeService _service = null;
+=======
+    private AddFragment mAddFragment;
+    private SummaryFragment mSummaryFragment;
+    private TravelModeFragment mTravelModeFragment;
+>>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
+
+        mSummaryFragment = new SummaryFragment();
+        mAddFragment = new AddFragment();
+        mTravelModeFragment = new TravelModeFragment();
+
+        // Default to the summary fragment
+        FragmentManager mFragmentManager = getFragmentManager();
+
+        FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
+        fTransaction.add(R.id.fragment_container, mSummaryFragment);
+        fTransaction.commit();
 
         // Create buttons
         final Button summaryButton = (Button) findViewById(R.id.summary_button);
         final Button addButton = (Button) findViewById(R.id.add_button);
         final Button travelModeButton = (Button) findViewById(R.id.travel_mode_button);
 
+        RadioGroup group = (RadioGroup) findViewById(R.id.radio_group);
+        group.check(R.id.summary_button);
+
         summaryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
-                startActivity(intent);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mSummaryFragment).commit();
             }
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                startActivity(intent);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mAddFragment).commit();
             }
         });
 
         travelModeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TravelModeActivity.class);
-                startActivity(intent);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mTravelModeFragment).commit();
             }
         });
 
@@ -88,5 +114,23 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // When a user interacts with the checkbox:
+    public void onCheckBoxClicked(View view) {
+        boolean isChecked = ((CheckBox) view).isChecked();
+        if (view.getId() == R.id.summary_checkbox) {
+            if (isChecked) {
+                Toast travelToastCheck = Toast.makeText(getApplicationContext(),
+                        "This did absolutely nothing.... for now....",
+                        Toast.LENGTH_LONG);
+                travelToastCheck.show();
+            } else {
+                Toast travelToastUncheck = Toast.makeText(getApplicationContext(),
+                        "You just undid absolutely nothing... for now ...",
+                        Toast.LENGTH_LONG);
+                travelToastUncheck.show();
+            }
+        }
     }
 }

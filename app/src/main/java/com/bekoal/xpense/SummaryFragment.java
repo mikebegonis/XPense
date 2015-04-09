@@ -1,41 +1,42 @@
 package com.bekoal.xpense;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
 import android.widget.TextView;
+import android.app.ListFragment;
 
-
-public class SummaryActivity extends ListActivity {
+public class SummaryFragment extends ListFragment {
 
     TripAdapter mAdapter;
+    private static final String[] TRIPS = { "Sample Trip 1", "Sample Trip 2", "Sample Trip 3" };
+
+//    Tim's code:
+//    mAdapter = new TripAdapter(getApplicationContext());
+//    setListAdapter(mAdapter);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_summary);
 
-        mAdapter = new TripAdapter(getApplicationContext());
-        setListAdapter(mAdapter);
+        // use different layout definition, depending on whether device is pre-
+        // or post-honeycomb
 
-  //      final TextView tripView = (TextView) getLayoutInflater().inflate(R.layout.activity_trip, null);
-  //      this.getListView().addFooterView(tripView);
+        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.layout.simple_list_item_activated_1
+                : android.R.layout.simple_list_item_1;
 
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        // Set the list adapter for this ListFragment
+        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, TRIPS));
     }
 
     @Override

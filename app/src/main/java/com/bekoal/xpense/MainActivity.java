@@ -1,14 +1,8 @@
 package com.bekoal.xpense;
 
-<<<<<<< HEAD
-import android.content.ComponentName;
-=======
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
->>>>>>> origin/master
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,19 +14,11 @@ import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.bekoal.xpense.service.TravelModeService;
-
 public class MainActivity extends ActionBarActivity {
 
-<<<<<<< HEAD
-    private ServiceConnection _serviceConn = null;
-
-    private TravelModeService _service = null;
-=======
     private AddFragment mAddFragment;
     private SummaryFragment mSummaryFragment;
     private TravelModeFragment mTravelModeFragment;
->>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,22 +61,6 @@ public class MainActivity extends ActionBarActivity {
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, mTravelModeFragment).commit();
             }
         });
-
-        startService(new Intent(this, TravelModeService.class));
-
-//        _serviceConn = new ServiceConnection() {
-//            @Override
-//            public void onServiceConnected(ComponentName name, IBinder service) {
-//                _service = ((TravelModeService.TravelModeBinder)service).getService();
-//            }
-//
-//            @Override
-//            public void onServiceDisconnected(ComponentName name) {
-//                _service = null;
-//            }
-//        };
-//
-//        bindService(new Intent(this, TravelModeService.class), _serviceConn, BIND_AUTO_CREATE);
     }
 
 

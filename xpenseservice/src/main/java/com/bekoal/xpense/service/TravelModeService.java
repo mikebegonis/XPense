@@ -94,7 +94,7 @@ public class TravelModeService extends IntentService {
 //            data += "$" + c.getDouble(1) + "    ";
 //            data += c.getString(2);
 
-
+            c.close();
 
             Intent response = new Intent(TravelModeCommands.EXECUTE_QUERY);
             response.putExtra(TravelModeCommands.EXECUTE_QUERY, data);

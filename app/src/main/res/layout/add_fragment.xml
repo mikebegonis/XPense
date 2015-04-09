@@ -2,10 +2,120 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/feed_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_temp" />
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/feed_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_temp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date: "/>
+
+            <EditText
+                android:id="@+id/txtDateTime_Expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="datetime"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount: $"/>
+
+            <EditText
+                android:id="@+id/txtAmount_Expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type: "/>
+
+            <Spinner
+                android:id="@+id/spinnerExpenseType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/expense_types"
+                android:prompt="@string/expense_choose_type"
+                ></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description: "/>
+
+            <EditText
+                android:id="@+id/txtDescription_Expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageButton
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:background="@drawable/button_shape_confirm"
+                android:src="@drawable/btn_check_buttonless_off"
+                android:scaleType="fitCenter"
+                android:layout_marginStart="57dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/btn_add_expense_confirm" />
+
+            <ImageButton
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:background="@drawable/button_shape_cancel"
+                android:src="@drawable/ic_menu_close_clear_cancel"
+                android:scaleType="fitCenter"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="81dp"
+                android:id="@+id/btn_add_expense_cancel"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </ScrollView>

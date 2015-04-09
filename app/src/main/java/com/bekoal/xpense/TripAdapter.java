@@ -45,7 +45,7 @@ public class TripAdapter extends BaseAdapter {
     public View getView(int pos, View resultingView, ViewGroup parent){
         final Trip trip = (Trip) getItem(pos);
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        resultingView = mInflater.inflate(R.layout.activity_trip, null);
+//        resultingView = mInflater.inflate(R.layout.activity_trip, null);
 
         return resultingView;
     }

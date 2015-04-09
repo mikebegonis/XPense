@@ -16,7 +16,7 @@
 
     <string name="travel_mode_string">Travel Mode:</string>
     <string name="travel_mode_prompt_string">Activate Travel Mode:</string>
-
+    <string name="travel_mode_temp">Here goes travel mode</string>
 
     <!--Buttons:-->
     <string name="summary_button">Summary</string>

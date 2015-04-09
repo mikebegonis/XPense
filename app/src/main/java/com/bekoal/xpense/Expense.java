@@ -43,6 +43,18 @@ public class Expense {
         this.type = type;
     }
 
+    public Expense(String date, String imagePath, Bitmap image, double amount, String description, String location, ExpenseType type) {
+        try {
+            this.date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(date);
+        }catch(Exception e){}
+        this.imagePath = imagePath;
+        this.image = image;
+        this.amount = amount;
+        this.description = description;
+        this.location = location;
+        this.type = type;
+    }
+
     public Expense(String[] args)
     {
         try {

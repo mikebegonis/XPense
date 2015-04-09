@@ -86,20 +86,6 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onItemSelected(boolean checked) {
-        if (checked) {
-            Toast travelToastCheck = Toast.makeText(getApplicationContext(),
-                    "This did absolutely nothing.... for now....",
-                    Toast.LENGTH_LONG);
-            travelToastCheck.show();
-        } else {
-            Toast travelToastUncheck = Toast.makeText(getApplicationContext(),
-                    "You just undid absolutely nothing... for now ...",
-                    Toast.LENGTH_LONG);
-            travelToastUncheck.show();
-        }
-    }
-
     // When a user interacts with the checkbox:
     public void onCheckBoxClicked(View view) {
         boolean isChecked = ((CheckBox) view).isChecked();

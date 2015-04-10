@@ -38,48 +38,40 @@ public class SummaryFragment extends ListFragment {
 //    mAdapter = new TripAdapter(getApplicationContext());
 //    setListAdapter(mAdapter);
 
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//
-//        View v = inflater.inflate(R.layout.add_fragment, container, false);
-//
-//
-//        layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.layout.simple_list_item_activated_1
-//                : android.R.layout.simple_list_item_1;
-//
-//
-//        _reciever = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                ArrayList<Parcelable> list = intent.getParcelableArrayListExtra(TravelModeCommands.EXECUTE_QUERY);
-//                ArrayList<String> stringList = new ArrayList<String>();
-//                for (int i = 0; i < list.size(); i++) {
-//                    QueryResult q = (QueryResult)list.get(i);
-//                    String str = "";
-//                    for(int k = 0 ; k < q.getResults().length ; ++k)
-//                    {
-//                        str += q.getResults()[k] + ", ";
-//                    }
-//                    stringList.add(str);
-//
-//
-//                }
-//                setListAdapter(new ArrayAdapter<String>(getActivity(), layout, stringList));
-//
-//            }
-//        };
-//
-//        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(_reciever,
-//                new IntentFilter(TravelModeCommands.EXECUTE_QUERY));
-//
-//
-//        Intent intent = new Intent(getActivity(), TravelModeService.class);
-//        intent.putExtra(TravelModeCommands.EXECUTE_QUERY, "SELECT * FROM Expenses");
-//        getActivity().startService(intent);
-//
-//        return v;
-//    }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        _reciever = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                ArrayList<Parcelable> list = intent.getParcelableArrayListExtra(TravelModeCommands.EXECUTE_QUERY);
+                ArrayList<String> stringList = new ArrayList<String>();
+                for (int i = 0; i < list.size(); i++) {
+                    QueryResult q = (QueryResult)list.get(i);
+                    String str = "";
+                    for(int k = 0 ; k < q.getResults().length ; ++k)
+                    {
+                        str += q.getResults()[k] + ", ";
+                    }
+                    stringList.add(str);
+
+
+                }
+                setListAdapter(new ArrayAdapter<String>(getActivity(), layout, stringList));
+
+            }
+        };
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(_reciever,
+                new IntentFilter(TravelModeCommands.EXECUTE_QUERY));
+
+
+        Intent intent = new Intent(getActivity(), TravelModeService.class);
+        intent.putExtra(TravelModeCommands.EXECUTE_QUERY, "SELECT * FROM Expenses");
+        getActivity().startService(intent);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,9 +82,9 @@ public class SummaryFragment extends ListFragment {
 
         layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.layout.simple_list_item_activated_1
                 : android.R.layout.simple_list_item_1;
-
-        // Set the list adapter for this ListFragment
-        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, TRIPS));
+//
+//        // Set the list adapter for this ListFragment
+//        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, TRIPS));
     }
 
     @Override

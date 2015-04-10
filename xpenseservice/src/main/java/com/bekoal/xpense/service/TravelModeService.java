@@ -121,7 +121,7 @@ public class TravelModeService extends IntentService {
 
             LocalBroadcastManager.getInstance(this).sendBroadcast(response);
         }
-        else if((data = intent.getStringExtra(TravelModeCommands.EXECUTE_QUERY)) != null)
+        else if((data = intent.getStringExtra(TravelModeCommands.EXECUTE_INSERT)) != null)
         {
             database.execSQL(data);
         }

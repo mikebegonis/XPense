@@ -22,23 +22,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Receipt: "/>
-
-            <Button
-                android:layout_width="63dp"
-                android:layout_height="34dp"
-                android:text="@string/add_receipt"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Date: "/>
 
             <EditText
@@ -103,6 +86,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textLongMessage"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receipt: "/>
+
+            <Button
+                android:id="@+id/add_receipt_button"
+                android:layout_width="63dp"
+                android:layout_height="34dp"
+                android:text="@string/add_receipt"/>
+
+            <ImageView
+                android:id="@+id/receipt_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
 
         </LinearLayout>
 

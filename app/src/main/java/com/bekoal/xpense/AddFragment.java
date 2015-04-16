@@ -109,10 +109,12 @@ public class AddFragment extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strQuery = "INSERT INTO Expenses VALUES(";
-                strQuery += String.format("'%s', %s, '%s', NULL, NULL, 0, 0, 0, '%s');",
+                String strQuery = "INSERT INTO Expenses("
+                        + "Date, Amount, Description, Img, Location, Type) VALUES(";
+                strQuery += String.format("'%s', %s, '%s', '%s', NULL, '%s');",
                         txtDateTimeExpense.getText().toString(), txtAmountExpense.getText().toString(),
-                        txtDescription.getText().toString(),
+                        txtDescription.getText().toString().replace("'", "''"),
+                        mCurrentPhotoPath,
                         spinnerExpenseType.getSelectedItem().toString());
 
                 ((MainActivity)getActivity()).getDatabase().execSQL(strQuery);

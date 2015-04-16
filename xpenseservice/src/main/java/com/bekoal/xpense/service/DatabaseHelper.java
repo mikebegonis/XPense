@@ -22,7 +22,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "`ExpenseID` INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "`DestinationID` INTEGER, " +
             "`Type` TEXT " +
-            ");";
+            ");  ";
+
+    private static final String CREATE_TABLE_LOCATION = "CREATE TABLE `Locations` (" +
+            "`Longitude` REAL, " +
+            "`Latitude` REAL, " +
+            "`Timestamp` TEXT " +
+            ");  ";
 
     public DatabaseHelper(Context context)
     {
@@ -32,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_EXPENSES);
+        db.execSQL(CREATE_TABLE_LOCATION);
     }
 
     @Override

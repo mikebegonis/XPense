@@ -48,9 +48,13 @@ public class AddFragment extends Fragment {
                         txtDateTimeExpense.getText().toString(), txtAmountExpense.getText().toString(),
                         txtDescription.getText().toString(),
                         spinnerExpenseType.getSelectedItem().toString());
-                Intent intent = new Intent(getActivity(), TravelModeService.class);
-                intent.putExtra(TravelModeCommands.EXECUTE_INSERT, strQuery);
-                getActivity().startService(intent);
+
+                ((MainActivity)getActivity()).getDatabase().execSQL(strQuery);
+
+
+//                Intent intent = new Intent(getActivity(), TravelModeService.class);
+//                intent.putExtra(TravelModeCommands.EXECUTE_INSERT, strQuery);
+//                getActivity().startService(intent);
             }
         });
 

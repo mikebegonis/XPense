@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
@@ -187,15 +188,20 @@ public class AddFragment extends Fragment {
 //            int photoH = 1080;
 
             // Determine how much to scale down the image
-            int scaleFactor = Math.max(1, Math.round(Math.min(photoW/targetW, photoH/targetH)));
+            int scaleFactor = Math.max(1, Math.round(Math.min(photoW / targetW, photoH / targetH)));
 
             // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false;
             bmOptions.inSampleSize = scaleFactor;
+
 //            bmOptions.inPurgeable = true;
 
             try {
-                Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap scaledBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+                Bitmap bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
                 receiptImage.setImageBitmap(bitmap);
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "Failed to load receipt image", Toast.LENGTH_SHORT).show();

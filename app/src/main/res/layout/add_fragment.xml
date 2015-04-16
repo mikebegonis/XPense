@@ -89,6 +89,33 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receipt: "/>
+
+            <Button
+                android:id="@+id/add_receipt_button"
+                android:layout_width="63dp"
+                android:layout_height="34dp"
+                android:text="@string/add_receipt"/>
+
+            <ImageView
+                android:id="@+id/receipt_image"
+                android:adjustViewBounds="true"
+                android:layout_width="@dimen/receipt_preview_width"
+                android:layout_height="@dimen/receipt_preview_height"
+                android:layout_weight="0.22"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">

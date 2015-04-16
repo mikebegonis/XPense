@@ -22,6 +22,7 @@
     <string name="summary_button">Summary</string>
     <string name="add_button">Add</string>
     <string name="travel_mode_button">Travel Mode</string>
+    <string name="add_receipt">Add</string>
 
     <string name="expense_choose_type">Type</string>
 

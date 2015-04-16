@@ -24,6 +24,8 @@ import com.bekoal.xpense.service.TravelModeService;
 
 public class MainActivity extends ActionBarActivity {
 
+    public static int TAKE_PICTURE = 1;
+
     private AddFragment mAddFragment;
     private SummaryFragment mSummaryFragment;
     private TravelModeFragment mTravelModeFragment;

@@ -174,8 +174,6 @@ public class AddFragment extends Fragment {
 
             // Create a preview bitmap
             receiptImage.setVisibility(View.VISIBLE);
-//            float targetW = (float)R.dimen.receipt_preview_width; // receiptImage.getWidth(); // = 0 for some reason even though its now visible
-//            float targetH = (float)R.dimen.receipt_preview_height; // receiptImage.getHeight();
             float targetW = 1920;
             float targetH = 1080;
 
@@ -184,8 +182,7 @@ public class AddFragment extends Fragment {
             BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
             float photoW = (float)bmOptions.outWidth;
             float photoH = (float)bmOptions.outHeight;
-//            int photoW = 1920;
-//            int photoH = 1080;
+
 
             // Determine how much to scale down the image
             int scaleFactor = Math.max(1, Math.round(Math.min(photoW / targetW, photoH / targetH)));
@@ -193,8 +190,6 @@ public class AddFragment extends Fragment {
             // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false;
             bmOptions.inSampleSize = scaleFactor;
-
-//            bmOptions.inPurgeable = true;
 
             try {
                 Matrix matrix = new Matrix();
@@ -216,38 +211,4 @@ public class AddFragment extends Fragment {
         return Uri.parse(path);
     }
 
-    public static Bitmap decodeSampledBitmapFromFile(String path,
-                                                     int reqWidth, int reqHeight) { // BEST QUALITY MATCH
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
-
-        // Calculate inSampleSize
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
-        int inSampleSize = 1;
-
-        if (height > reqHeight) {
-            inSampleSize = Math.round((float)height / (float)reqHeight);
-        }
-
-        int expectedWidth = width / inSampleSize;
-
-        if (expectedWidth > reqWidth) {
-            //if(Math.round((float)width / (float)reqWidth) > inSampleSize) // If bigger SampSize..
-            inSampleSize = Math.round((float)width / (float)reqWidth);
-        }
-
-
-        options.inSampleSize = inSampleSize;
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-
-        return BitmapFactory.decodeFile(path, options);
-    }
 }

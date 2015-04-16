@@ -108,8 +108,11 @@
 
             <ImageView
                 android:id="@+id/receipt_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp" />
+                android:adjustViewBounds="true"
+                android:layout_width="@dimen/receipt_preview_width"
+                android:layout_height="@dimen/receipt_preview_height"
+                android:layout_weight="0.22"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

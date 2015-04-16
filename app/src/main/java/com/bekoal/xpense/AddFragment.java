@@ -165,11 +165,9 @@ public class AddFragment extends Fragment {
             getActivity().sendBroadcast(mediaScanIntent);
 
             // Create a preview bitmap
-            receiptImage.requestLayout();
-            receiptImage.getLayoutParams().height = 350;
-            receiptImage.getLayoutParams().width = 150;
-            int targetW = 350;
-            int targetH = 150; // receiptImage.getHeight()
+            receiptImage.setVisibility(View.VISIBLE);
+            int targetW = R.dimen.receipt_preview_width; // receiptImage.getWidth(); // = 0 for some reason even though its now visible
+            int targetH = R.dimen.receipt_preview_height; // receiptImage.getHeight();
 
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             bmOptions.inJustDecodeBounds = true;

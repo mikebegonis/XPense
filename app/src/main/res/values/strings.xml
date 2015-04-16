@@ -22,4 +22,15 @@
     <string name="summary_button">Summary</string>
     <string name="add_button">Add</string>
     <string name="travel_mode_button">Travel Mode</string>
+    <string name="add_receipt">Add</string>
+
+    <string name="expense_choose_type">Type</string>
+
+    <string-array name="expense_types">
+        <item>Food</item>
+        <item>Lodging</item>
+        <item>Gas</item>
+        <item>Car Rental</item>
+        <item>Other</item>
+    </string-array>
 </resources>

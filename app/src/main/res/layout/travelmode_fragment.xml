@@ -23,7 +23,7 @@
             android:textAppearance="?android:textAppearanceLarge"/>
 
         <CheckBox
-            android:id="@+id/summary_checkbox"
+            android:id="@+id/travel_mode_checkbox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"

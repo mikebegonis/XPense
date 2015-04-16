@@ -16,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "`Date` TEXT NOT NULL, " +
             "`Amount` REAL NOT NULL, " +
             "`Description` TEXT, " +
-            "`Img` BLOB, " +
+            "`Img` TEXT, " +
             "`Location` TEXT, " +
             "`TravelID` INTEGER, " +
             "`ExpenseID` INTEGER PRIMARY KEY AUTOINCREMENT, " +

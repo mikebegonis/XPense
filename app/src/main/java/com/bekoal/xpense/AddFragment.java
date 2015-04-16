@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
@@ -109,10 +110,12 @@ public class AddFragment extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strQuery = "INSERT INTO Expenses VALUES(";
-                strQuery += String.format("'%s', %s, '%s', NULL, NULL, 0, 0, 0, '%s');",
+                String strQuery = "INSERT INTO Expenses("
+                        + "Date, Amount, Description, Img, Location, Type) VALUES(";
+                strQuery += String.format("'%s', %s, '%s', '%s', NULL, '%s');",
                         txtDateTimeExpense.getText().toString(), txtAmountExpense.getText().toString(),
-                        txtDescription.getText().toString(),
+                        txtDescription.getText().toString().replace("'", "''"),
+                        mCurrentPhotoPath,
                         spinnerExpenseType.getSelectedItem().toString());
 
                 ((MainActivity)getActivity()).getDatabase().execSQL(strQuery);
@@ -161,6 +164,7 @@ public class AddFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == MainActivity.TAKE_PICTURE) {
+
             // Add the photo to a gallery
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             File f = new File(mCurrentPhotoPath);
@@ -170,25 +174,29 @@ public class AddFragment extends Fragment {
 
             // Create a preview bitmap
             receiptImage.setVisibility(View.VISIBLE);
-            int targetW = R.dimen.receipt_preview_width; // receiptImage.getWidth(); // = 0 for some reason even though its now visible
-            int targetH = R.dimen.receipt_preview_height; // receiptImage.getHeight();
+            float targetW = 1920;
+            float targetH = 1080;
 
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             bmOptions.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
+            float photoW = (float)bmOptions.outWidth;
+            float photoH = (float)bmOptions.outHeight;
+
 
             // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+            int scaleFactor = Math.max(1, Math.round(Math.min(photoW / targetW, photoH / targetH)));
 
             // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false;
             bmOptions.inSampleSize = scaleFactor;
-//            bmOptions.inPurgeable = true;
 
             try {
-                Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap scaledBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+                Bitmap bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
                 receiptImage.setImageBitmap(bitmap);
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "Failed to load receipt image", Toast.LENGTH_SHORT).show();
@@ -202,4 +210,5 @@ public class AddFragment extends Fragment {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+
 }

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.util.Log;
 
+import com.bekoal.xpense.service.DatabaseHelper;
 import com.bekoal.xpense.service.TravelModeService;
 
 public class TravelModeFragment extends Fragment {
@@ -23,6 +25,9 @@ public class TravelModeFragment extends Fragment {
     CheckBox mTravelModeCheckbox = null;
 
     private boolean isInTravelMode = false;
+
+    private DatabaseHelper dbHelper = null;
+    private SQLiteDatabase db = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,6 +38,9 @@ public class TravelModeFragment extends Fragment {
                 Context.MODE_PRIVATE);
 
         isInTravelMode = prefs.getBoolean(TravelModeService.IS_TRAVEL_MODE_ACTIVE, false);
+
+        dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
+        db = dbHelper.getWritableDatabase();
 
         mTravelModeCheckbox = (CheckBox)view.findViewById(R.id.travel_mode_checkbox);
         mTravelModeCheckbox.setChecked(isInTravelMode);
@@ -54,6 +62,14 @@ public class TravelModeFragment extends Fragment {
 
             }
         });
+
+        view.findViewById(R.id.travel_mode_button_clear_location_table)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        db.execSQL("DELETE FROM Locations");
+                    }
+                });
 
         return view;
     }

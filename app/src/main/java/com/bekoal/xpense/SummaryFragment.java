@@ -6,6 +6,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -15,17 +18,20 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
 import android.widget.TextView;
 import android.app.ListFragment;
 
+import com.bekoal.xpense.service.DatabaseHelper;
 import com.bekoal.xpense.service.QueryResult;
 import com.bekoal.xpense.service.TravelModeCommands;
 import com.bekoal.xpense.service.TravelModeService;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SummaryFragment extends ListFragment {
 
@@ -33,7 +39,11 @@ public class SummaryFragment extends ListFragment {
     private static final String[] TRIPS = { "Sample Trip 1", "Sample Trip 2", "Sample Trip 3" };
 
     private BroadcastReceiver _reciever = null;
+    private DatabaseHelper dbHelper = null;
+    private SQLiteDatabase db = null;
     private int layout;
+
+    ArrayAdapter<String> adapter = null;
 //    Tim's code:
 //    mAdapter = new TripAdapter(getApplicationContext());
 //    setListAdapter(mAdapter);
@@ -43,34 +53,50 @@ public class SummaryFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        _reciever = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                ArrayList<Parcelable> list = intent.getParcelableArrayListExtra(TravelModeCommands.EXECUTE_QUERY);
-                ArrayList<String> stringList = new ArrayList<String>();
-                for (int i = 0; i < list.size(); i++) {
-                    QueryResult q = (QueryResult)list.get(i);
-                    String str = "";
-                    for(int k = 0 ; k < q.getResults().length ; ++k)
-                    {
-                        str += q.getResults()[k] + ", ";
-                    }
-                    stringList.add(str);
+        dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
+        db = dbHelper.getReadableDatabase();
 
+        Cursor c = db.rawQuery("SELECT * FROM Expenses", null);
 
-                }
-                setListAdapter(new ArrayAdapter<String>(getActivity(), layout, stringList));
-
+        ArrayList<String> strings = new ArrayList<>();
+        while(c.moveToNext())
+        {
+            String str = "";
+            for (int i = 0; i < c.getColumnCount(); i++) {
+                str += c.getString(i) + " , ";
             }
-        };
+            strings.add(str);
+        }
 
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(_reciever,
-                new IntentFilter(TravelModeCommands.EXECUTE_QUERY));
+        c = db.rawQuery("SELECT * FROM Locations", null);
 
+        while(c.moveToNext())
+        {
+            String str = "";
+            for (int i = 0; i < c.getColumnCount(); i++) {
+                str += c.getString(i) + " , ";
+            }
+            strings.add(str);
+        }
 
-        Intent intent = new Intent(getActivity(), TravelModeService.class);
-        intent.putExtra(TravelModeCommands.EXECUTE_QUERY, "SELECT * FROM Expenses");
-        getActivity().startService(intent);
+        adapter = new ArrayAdapter<String>(getActivity(), layout, strings);
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String str = adapter.getItem(position);
+                String[] arr = str.split(",");
+                if(arr.length <= 6)
+                {
+                    double lat = Double.parseDouble(arr[0]);
+                    double lon = Double.parseDouble(arr[1]);
+                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", lat, lon);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    getActivity().startActivity(intent);
+                }
+            }
+        });
+        setListAdapter(adapter);
+
     }
 
     @Override

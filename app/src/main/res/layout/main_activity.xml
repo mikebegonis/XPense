@@ -1,6 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -9,48 +9,50 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_weight="2"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:gravity="top">
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
     </FrameLayout>
 
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="bottom"
-        android:orientation="horizontal" >
+    <RelativeLayout
+        android:id="@+id/button_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom">
+            <RadioButton
+                android:id="@+id/summary_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                style="@style/RadioButtonStyle"
+                android:gravity="center"
+                android:text="@string/summary_button" />
 
-        <RadioButton
-            android:id="@+id/summary_button"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            style="@style/RadioButtonStyle"
-            android:gravity="center"
-            android:text="@string/summary_button" />
+            <RadioButton
+                android:id="@+id/add_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="2"
+                style="@style/RadioButtonStyle"
+                android:gravity="center"
+                android:text="@string/add_button" />
 
-        <RadioButton
-            android:id="@+id/add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="2"
-            style="@style/RadioButtonStyle"
-            android:gravity="center"
-            android:text="@string/add_button" />
-
-        <RadioButton
-            android:id="@+id/travel_mode_button"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            style="@style/RadioButtonStyle"
-            android:gravity="center"
-            android:text="@string/travel_mode_button" />
-    </RadioGroup>
-</LinearLayout>
+            <RadioButton
+                android:id="@+id/travel_mode_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                style="@style/RadioButtonStyle"
+                android:gravity="center"
+                android:text="@string/travel_mode_button" />
+        </RadioGroup>
+    </RelativeLayout>
+</RelativeLayout>

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +25,8 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <service android:name=".TravelModeService$GoogleActivityIntentService"></service>
 
         <receiver
             android:name=".TravelModeReceiver"

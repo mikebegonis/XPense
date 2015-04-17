@@ -27,7 +27,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_LOCATION = "CREATE TABLE `Locations` (" +
             "`Longitude` REAL, " +
             "`Latitude` REAL, " +
-            "`Timestamp` TEXT " +
+            "`Timestamp` TEXT, " +
+            "`Activity` INTEGER, " +
+            "`ActivityConfidence` INTEGER " +
             ");  ";
 
     public DatabaseHelper(Context context)

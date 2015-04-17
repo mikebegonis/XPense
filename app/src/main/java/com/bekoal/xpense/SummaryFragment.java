@@ -73,10 +73,20 @@ public class SummaryFragment extends ListFragment {
         while(c.moveToNext())
         {
             String str = "";
-            for (int i = 0; i < c.getColumnCount(); i++) {
-                str += c.getString(i) + " , ";
-            }
+//            for (int i = 0; i < c.getColumnCount(); i++) {
+//                str += c.getString(i) + " , ";
+//            }
+
+            str += c.getString(c.getColumnIndex("Longitude")) + " , ";
+            str += c.getString(c.getColumnIndex("Latitude")) + " , ";
+            str += c.getString(c.getColumnIndex("Timestamp")) + " , ";
+            str += TravelModeService.GoogleActivityIntentService.DetectedActivityToString(c.getInt(c.getColumnIndex("Activity"))) + " , ";
+            str += c.getString(c.getColumnIndex("ActivityConfidence"));
+
+
+
             strings.add(str);
+
         }
 
         adapter = new ArrayAdapter<String>(getActivity(), layout, strings);

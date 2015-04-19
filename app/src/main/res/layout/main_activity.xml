@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
@@ -9,50 +9,45 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
+        android:layout_weight="5"
+        android:layout_height="0dp"
+        android:layout_width="match_parent">
     </FrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/button_layout"
+    <RadioGroup
+        android:id="@+id/radio_group"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="bottom">
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="bottom">
-            <RadioButton
-                android:id="@+id/summary_button"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                style="@style/RadioButtonStyle"
-                android:gravity="center"
-                android:text="@string/summary_button" />
+        <RadioButton
+            android:id="@+id/summary_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            style="@style/RadioButtonStyle"
+            android:gravity="center"
+            android:text="@string/summary_button" />
 
-            <RadioButton
-                android:id="@+id/add_button"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="2"
-                style="@style/RadioButtonStyle"
-                android:gravity="center"
-                android:text="@string/add_button" />
+        <RadioButton
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="2"
+            style="@style/RadioButtonStyle"
+            android:gravity="center"
+            android:text="@string/add_button" />
 
-            <RadioButton
-                android:id="@+id/travel_mode_button"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                style="@style/RadioButtonStyle"
-                android:gravity="center"
-                android:text="@string/travel_mode_button" />
-        </RadioGroup>
-    </RelativeLayout>
-</RelativeLayout>
+        <RadioButton
+            android:id="@+id/travel_mode_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            style="@style/RadioButtonStyle"
+            android:gravity="center"
+            android:text="@string/travel_mode_button" />
+    </RadioGroup>
+</LinearLayout>

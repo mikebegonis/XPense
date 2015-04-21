@@ -32,6 +32,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "`ActivityConfidence` INTEGER " +
             ");  ";
 
+    private static final String CREATE_TABLE_TRIP = "CREATE TABLE `Travel` (" +
+            "`StartDate` TEXT, " +
+            "`EndDate` TEXT, " +
+            "`Title` TEXT, " +
+            "`Status` TEXT, " +
+            "`Note` TEXT, " +
+            "`TravelID` INTEGER PRIMARY KEY AUTOINCREMENT " +
+            ");";
+
     public DatabaseHelper(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_EXPENSES);
         db.execSQL(CREATE_TABLE_LOCATION);
+        db.execSQL(CREATE_TABLE_TRIP);
     }
 
     @Override

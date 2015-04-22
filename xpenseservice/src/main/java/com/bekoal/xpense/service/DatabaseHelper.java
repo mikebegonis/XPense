@@ -27,8 +27,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_LOCATION = "CREATE TABLE `Locations` (" +
             "`Longitude` REAL, " +
             "`Latitude` REAL, " +
-            "`Timestamp` TEXT " +
+            "`Timestamp` TEXT, " +
+            "`Activity` INTEGER, " +
+            "`ActivityConfidence` INTEGER " +
             ");  ";
+
+    private static final String CREATE_TABLE_TRIP = "CREATE TABLE `Travel` (" +
+            "`StartDate` TEXT, " +
+            "`EndDate` TEXT, " +
+            "`Title` TEXT, " +
+            "`Status` TEXT, " +
+            "`Note` TEXT, " +
+            "`TravelID` INTEGER PRIMARY KEY AUTOINCREMENT " +
+            ");";
 
     public DatabaseHelper(Context context)
     {
@@ -39,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_EXPENSES);
         db.execSQL(CREATE_TABLE_LOCATION);
+        db.execSQL(CREATE_TABLE_TRIP);
     }
 
     @Override
@@ -46,3 +58,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 }
+

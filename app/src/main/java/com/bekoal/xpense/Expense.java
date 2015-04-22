@@ -21,41 +21,27 @@ import java.util.Date;
 public class Expense extends DatabaseItem {
 
     private Date date = null;
-
     private String imagePath = "";
-
     private Bitmap image = null;
-
     private double amount = 0.0;
-
     private String description = "";
-
     private String location = "";
-
     private int travelID = -1;
-
     private int expenseID = -1;
-
     private int destinationID = -1;
-
-
-
-
-
-
 
     private ExpenseType type = ExpenseType.Other;
 
-    public Expense(Date date, String imagePath, Bitmap image, double amount, String description, String location, ExpenseType type) {
-        super("ExpenseID", "Expenses");
-        this.date = date;
-        this.imagePath = imagePath;
-        this.image = image;
-        this.amount = amount;
-        this.description = description;
-        this.location = location;
-        this.type = type;
-    }
+//    public Expense(Date date, String imagePath, Bitmap image, double amount, String description, String location, ExpenseType type) {
+//        super("ExpenseID", "Expenses");
+//        this.date = date;
+//        this.imagePath = imagePath;
+//        this.image = image;
+//        this.amount = amount;
+//        this.description = description;
+//        this.location = location;
+//        this.type = type;
+//    }
 
     public Expense(String date, String imagePath, Bitmap image, double amount, String description, String location, ExpenseType type) {
         super("ExpenseID", "Expenses");
@@ -77,26 +63,26 @@ public class Expense extends DatabaseItem {
         try {
             // TODO make sure format here is correct
             if(args[0] != null)
-                date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(args[0]);
+                date = new SimpleDateFormat("MM-dd-yyyy").parse(args[0]);
         }
         catch(ParseException e)
         {
 
         }
+//        if(args[1] != null)
+//            imagePath = args[1];
         if(args[1] != null)
-            imagePath = args[1];
+            amount = Double.parseDouble(args[1]);
         if(args[2] != null)
-            amount = Double.parseDouble(args[2]);
-        if(args[3] != null)
-            description = args[3];
-        if(args[4] != null)
-            location = args[4];
-        if(args[5] != null)
-            travelID = Integer.parseInt(args[5]);
-        if(args[6] != null)
-            expenseID = Integer.parseInt(args[6]);
+            description = args[2];
+//        if(args[4] != null)
+//            location = args[4];
+//        if(args[5] != null)
+//            travelID = Integer.parseInt(args[5]);
+//        if(args[6] != null)
+//            expenseID = Integer.parseInt(args[6]);
         if(args[7] != null)
-            destinationID = Integer.parseInt(args[7]);
+            location = args[7];
         if(args[8] != null)
             type = ExpenseType.valueOf(args[8]);
     }

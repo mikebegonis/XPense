@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,28 @@ public class TripAdapter extends BaseAdapter {
     public View getView(int pos, View resultingView, ViewGroup parent){
         final Trip trip = (Trip) getItem(pos);
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        resultingView = mInflater.inflate(R.layout.activity_trip, null);
+        resultingView = mInflater.inflate(R.layout.activity_trip, null);
+
+        final TextView titleView = (TextView) resultingView.findViewById(R.id.title);
+        String titleText = trip.getmTitle().toString();
+        titleView.setText(titleText);
+
+        final TextView startDateView = (TextView) resultingView.findViewById(R.id.startDate);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String startDateText = simpleDateFormat.format(trip.getmStartDate());
+        startDateView.setText(startDateText);
+
+        final TextView endDateView = (TextView) resultingView.findViewById(R.id.endDate);
+        String endDateText = simpleDateFormat.format(trip.getmEndDate());
+        endDateView.setText(endDateText);
+
+        final TextView totalView = (TextView) resultingView.findViewById(R.id.total);
+        String totalText = Integer.toString(trip.getmTotal());
+        totalView.setText(totalText);
+
+        final TextView noteView = (TextView) resultingView.findViewById(R.id.note);
+        String noteText = trip.getmNote();
+        noteView.setText(noteText);
 
         return resultingView;
     }

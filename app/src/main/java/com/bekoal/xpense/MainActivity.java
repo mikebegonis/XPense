@@ -124,26 +124,6 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // When a user interacts with the checkbox:
-//    public void onCheckBoxClicked(View view) {
-//        boolean isChecked = ((CheckBox) view).isChecked();
-//        if (view.getId() == R.id.summary_checkbox) {
-//            if (isChecked) {
-//                Toast travelToastCheck = Toast.makeText(getApplicationContext(),
-//                        "This did absolutely nothing.... for now....",
-//                        Toast.LENGTH_LONG);
-//                travelToastCheck.show();
-//                travelModeService.EnableTravelMode();
-//            } else {
-//                Toast travelToastUncheck = Toast.makeText(getApplicationContext(),
-//                        "You just undid absolutely nothing... for now ...",
-//                        Toast.LENGTH_LONG);
-//                travelToastUncheck.show();
-//                travelModeService.DisableTravelMode();
-//            }
-//        }
-//    }
-
 
     @Override
     protected void onResume() {

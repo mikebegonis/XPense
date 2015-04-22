@@ -6,6 +6,23 @@ public enum ExpenseType
     Lodging,
     Gas,
     CarRental,
-    Other,
+    Other;
 
+    @Override
+    public String toString() {
+        switch (this) {
+            case Food:
+                return "Food";
+            case Lodging:
+                return "Lodging";
+            case Gas:
+                return "Gas";
+            case CarRental:
+                return "CarRental";
+            case Other:
+                return "Other";
+            default:
+                return "Expense";
+        }
+    };
 }

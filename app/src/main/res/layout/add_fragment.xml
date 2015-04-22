@@ -8,11 +8,25 @@
         android:orientation="vertical"
         >
 
-        <TextView
-            android:id="@+id/feed_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_temp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/feed_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_temp"
+                android:textAppearance="?android:textAppearanceLarge"/>
+
+
+            <CheckBox
+                android:id="@+id/expenseCheckBox"
+                android:layout_width="30dp"
+                android:layout_height="20dp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,13 +77,26 @@
 
             <Spinner
                 android:id="@+id/spinnerExpenseType"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/expense_types"
                 android:prompt="@string/expense_choose_type"
                 ></Spinner>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trip: "/>
+
+            <Spinner
+                android:id="@+id/spinnerTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ></Spinner>
+
         </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,6 +140,90 @@
                 android:layout_height="@dimen/receipt_preview_height"
                 android:layout_weight="0.22"
                 android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Or, add a new Trip!"
+                android:textAppearance="?android:textAppearanceLarge"/>
+
+            <CheckBox
+                android:id="@+id/tripCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destination: "/>
+
+            <EditText
+                android:id="@+id/destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start date: "/>
+
+            <EditText
+                android:id="@+id/startDate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End date: "/>
+
+
+            <EditText
+                android:id="@+id/endDate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notes: "/>
+
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage"/>
 
         </LinearLayout>
 

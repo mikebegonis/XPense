@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff8e8e8e"
+    android:id="@+id/expense">
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:text="Expense"
+        android:textColor="#ffffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:id="@+id/descriptionPrefix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description: "
+        android:textColor="#ffffffff"
+        android:layout_below="@+id/type"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="99 Restauarant"
+        android:textColor="#ffffffff"
+        android:layout_alignTop="@+id/descriptionPrefix"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp" />
+
+    <TextView
+        android:id="@+id/costPrefix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cost: "
+        android:textColor="#ffffffff"
+        android:layout_below="@+id/descriptionPrefix"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="$0"
+        android:textColor="#ffffffff"
+        android:layout_below="@+id/description"
+        android:layout_alignStart="@+id/description" />
+
+    <TextView
+        android:id="@+id/datePrefix"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Date: "
+        android:textColor="#ffffffff"
+        android:layout_below="@+id/costPrefix"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/date"
+        android:text="mm-dd-yyyy"
+        android:textColor="#ffffffff"
+        android:layout_below="@id/cost"
+        android:layout_alignStart="@id/cost"/>
+
+</RelativeLayout>

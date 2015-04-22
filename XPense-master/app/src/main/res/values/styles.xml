@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <!-- For buttons -->
+    <color name="titleButtonCheckedGradientLight">#000000</color>
+    <color name="titleButtonCheckedGradientDark">#ffffff</color>
+    <color name="titleButtonCheckedGradientGrey">#333</color>
+    <color name="titleButtonBorder">#fff</color>
+
+    <style name="RadioButtonStyle" parent="@android:style/Widget.CompoundButton">
+        <item name="android:background">@drawable/buttons</item>
+        <item name="android:button">@null</item>
+    </style>
+
+</resources>

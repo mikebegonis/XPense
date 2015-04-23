@@ -17,7 +17,7 @@
                 android:id="@+id/feed_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_temp"
+                android:text="@string/expense_label"
                 android:textAppearance="?android:textAppearanceLarge"/>
 
 
@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date: "/>
+                android:text="@string/date_view"/>
 
             <EditText
                 android:id="@+id/txtDateTime_Expense"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount: $"/>
+                android:text="@string/amount_view"/>
 
             <EditText
                 android:id="@+id/txtAmount_Expense"
@@ -73,7 +73,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Type: "/>
+                android:text="@string/type_view"/>
 
             <Spinner
                 android:id="@+id/spinnerExpenseType"
@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trip: "/>
+                android:text="@string/trip_view"/>
 
             <Spinner
                 android:id="@+id/spinnerTrip"
@@ -106,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description: "/>
+                android:text="@string/description_view"/>
 
             <EditText
                 android:id="@+id/txtDescription_Expense"
@@ -125,7 +125,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Receipt: "/>
+                android:text="@string/receipt_view"/>
 
             <Button
                 android:id="@+id/add_receipt_button"
@@ -151,7 +151,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Or, add a new Trip!"
+                android:text="@string/trip_label"
                 android:textAppearance="?android:textAppearanceLarge"/>
 
             <CheckBox
@@ -169,7 +169,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Destination: "/>
+                android:text="@string/destination_view"/>
 
             <EditText
                 android:id="@+id/destination"
@@ -187,7 +187,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start date: "/>
+                android:text="@string/start_date"/>
 
             <EditText
                 android:id="@+id/startDate"
@@ -198,7 +198,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End date: "/>
+                android:text="@string/end_date"/>
 
 
             <EditText
@@ -217,7 +217,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notes: "/>
+                android:text="@string/notes_view"/>
 
             <EditText
                 android:id="@+id/note"

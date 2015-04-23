@@ -152,6 +152,7 @@ public class SummaryFragment extends ListFragment {
                 dialog.setTitle("Modify trip?");
                 dialog.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // Edit the trip
                         dialog.cancel();
                     }
                 });
@@ -164,6 +165,8 @@ public class SummaryFragment extends ListFragment {
 
                 dialog.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // Delete the trip from the list and the db?
+                        // Maybe add a confirm alert?
                         dialog.cancel();
                     }
                 });

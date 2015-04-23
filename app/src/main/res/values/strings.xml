@@ -7,12 +7,23 @@
     <!--TextViews-->
     <string name="main_string">Main:</string>
     <string name="main_temp">Some sort of welcome maybe?</string>
+    <string name="date_view">Date: </string>
+    <string name="amount_view">Amount: $</string>
+    <string name="type_view">Type: </string>
+    <string name="trip_view">Trip: </string>
+    <string name="description_view">Description: </string>
+    <string name="receipt_view">Receipt: </string>
+    <string name="start_date">Start date: </string>
+    <string name="end_date">End date: </string>
+    <string name="notes_view">Notes: </string>
+    <string name="destination_view">Destination: </string>
 
     <string name="summary_string">Summary:</string>
     <string name="summary_temp_string">Here we allow a user to select a trip to view expenses from</string>
 
     <string name="add_string">Add:</string>
-    <string name="add_temp">Interface to add a new trip/expense</string>
+    <string name="expense_label">Add an expense</string>
+    <string name="trip_label">Or add a label</string>
 
     <string name="travel_mode_string">Travel Mode:</string>
     <string name="travel_mode_prompt_string">Activate Travel Mode:</string>

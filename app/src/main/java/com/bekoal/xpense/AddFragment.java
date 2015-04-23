@@ -173,15 +173,21 @@ public class AddFragment extends Fragment {
                 if(expenseCheckBox.isChecked() && !tripCheckBox.isChecked()) {
                     String strQuery = "INSERT INTO Expenses("
                             + "Date, Amount, Description, Img, Location, Type, TravelID) VALUES(";
-                    strQuery += String.format("'%s', %s, '%s', '%s', NULL, '%s', '%s');",
-                            txtDateTimeExpense.getText().toString(),
-                            txtAmountExpense.getText().toString(),
-                            txtDescription.getText().toString().replace("'", "''"),
-                            mCurrentPhotoPath,
-                            spinnerExpenseType.getSelectedItem().toString(),
-                            spinnerTrip.getSelectedItem().toString());
+                    try {
+                        strQuery += String.format("'%s', %s, '%s', '%s', NULL, '%s', '%s');",
+                                txtDateTimeExpense.getText().toString(),
+                                txtAmountExpense.getText().toString(),
+                                txtDescription.getText().toString().replace("'", "''"),
+                                mCurrentPhotoPath,
+                                spinnerExpenseType.getSelectedItem().toString(),
+                                spinnerTrip.getSelectedItem().toString());
 
-                    ((MainActivity) getActivity()).getDatabase().execSQL(strQuery);
+                        ((MainActivity) getActivity()).getDatabase().execSQL(strQuery);
+                    } catch (Exception e) {
+                        Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                "Please add a trip before adding an expense.", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
 
 

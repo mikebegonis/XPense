@@ -222,7 +222,7 @@ public class AddFragment extends Fragment {
                 txtDescription.setText("");
                 spinnerExpenseType.setSelection(0);
                 spinnerTrip.setSelection(0);
-                receiptImage.setVisibility(View.INVISIBLE);
+                receiptImage.setVisibility(View.GONE);
                 receiptImage.setImageBitmap(null);
 
 

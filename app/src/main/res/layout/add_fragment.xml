@@ -1,259 +1,43 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/add_fragment_container"
+            android:layout_weight="1"
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="top">
+        </FrameLayout>
 
-            <TextView
-                android:id="@+id/feed_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/expense_label"
-                android:textAppearance="?android:textAppearanceLarge"/>
-
-
-            <CheckBox
-                android:id="@+id/expenseCheckBox"
-                android:layout_width="30dp"
-                android:layout_height="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date_view"/>
-
-            <EditText
-                android:id="@+id/txtDateTime_Expense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="datetime"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amount_view"/>
-
-            <EditText
-                android:id="@+id/txtAmount_Expense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/type_view"/>
-
-            <Spinner
-                android:id="@+id/spinnerExpenseType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/expense_types"
-                android:prompt="@string/expense_choose_type"
-                ></Spinner>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/trip_view"/>
-
-            <Spinner
-                android:id="@+id/spinnerTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                ></Spinner>
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description_view"/>
-
-            <EditText
-                android:id="@+id/txtDescription_Expense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textLongMessage"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/receipt_view"/>
-
-            <Button
-                android:id="@+id/add_receipt_button"
-                android:layout_width="63dp"
-                android:layout_height="34dp"
-                android:text="@string/add_receipt"/>
-
-            <ImageView
-                android:id="@+id/receipt_image"
-                android:adjustViewBounds="true"
-                android:layout_width="@dimen/receipt_preview_width"
-                android:layout_height="@dimen/receipt_preview_height"
-                android:layout_weight="0.22"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/trip_label"
-                android:textAppearance="?android:textAppearanceLarge"/>
-
-            <CheckBox
-                android:id="@+id/tripCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/destination_view"/>
-
-            <EditText
-                android:id="@+id/destination"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_date"/>
-
-            <EditText
-                android:id="@+id/startDate"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:inputType="date"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/end_date"/>
-
-
-            <EditText
-                android:id="@+id/endDate"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:inputType="date"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/notes_view"/>
-
-            <EditText
-                android:id="@+id/note"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textLongMessage"/>
-
-        </LinearLayout>
-
-        <RelativeLayout
+        <RadioGroup
+            android:id="@+id/radio_group_add"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:checkedButton="@+id/add_trip_button"
+            android:orientation="horizontal" >
 
-            <ImageButton
-                android:layout_width="86dp"
-                android:layout_height="86dp"
-                android:background="@drawable/button_shape_confirm"
-                android:src="@drawable/btn_check_buttonless_off"
-                android:scaleType="fitCenter"
-                android:layout_marginStart="57dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/btn_add_expense_confirm" />
+            <RadioButton
+                android:id="@+id/add_trip_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="2"
+                style="@style/RadioButtonStyle"
+                android:gravity="center"
+                android:text="@string/add_trip_button" />
 
-            <ImageButton
-                android:layout_width="86dp"
-                android:layout_height="86dp"
-                android:background="@drawable/button_shape_cancel"
-                android:src="@drawable/ic_menu_close_clear_cancel"
-                android:scaleType="fitCenter"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="81dp"
-                android:id="@+id/btn_add_expense_cancel"/>
-        </RelativeLayout>
-
+            <RadioButton
+                android:id="@+id/add_expense_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                style="@style/RadioButtonStyle"
+                android:gravity="center"
+                android:text="@string/add_expense_button" />
+        </RadioGroup>
     </LinearLayout>
 
-</ScrollView>

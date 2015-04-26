@@ -60,9 +60,6 @@ public class MainActivity extends ActionBarActivity {
         final Button addButton = (Button) findViewById(R.id.add_button);
         final Button travelModeButton = (Button) findViewById(R.id.travel_mode_button);
 
-        RadioGroup group = (RadioGroup) findViewById(R.id.radio_group);
-        group.check(R.id.summary_button);
-
         summaryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, mSummaryFragment).commit();

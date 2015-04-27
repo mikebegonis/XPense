@@ -1,5 +1,6 @@
 package com.bekoal.xpense.service;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -7,38 +8,36 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.hardware.GeomagneticField;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.ActivityRecognition;
-import com.google.android.gms.location.ActivityRecognitionApi;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingApi;
+import com.google.android.gms.location.GeofencingEvent;
+import com.google.android.gms.location.GeofencingRequest;
+import com.google.android.gms.location.LocationServices;
 
 
-
-
-
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 public class TravelModeService extends Service
     implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -61,7 +60,12 @@ public class TravelModeService extends Service
 
 
 
-    GoogleApiClient mGoogleApiClient = null;
+
+
+
+    public static GoogleApiClient mGoogleApiClient = null;
+
+
 
 
 
@@ -94,6 +98,50 @@ public class TravelModeService extends Service
                 Calendar calendar = Calendar.getInstance();
                 String time = SimpleDateFormat.getDateTimeInstance().format(calendar.getTime());
 
+                if(GoogleActivityIntentService._lastKnownActivityState != DetectedActivity.IN_VEHICLE) {
+                    if (TravelModeGeofenceIntentService.mGeofence == null) {
+                        TravelModeGeofenceIntentService.mLatGeofence = lat;
+                        TravelModeGeofenceIntentService.mLonGeofence = lon;
+                        List<Geofence> mGeofenceList = new ArrayList<Geofence>();
+                        TravelModeGeofenceIntentService.mGeofence = new Geofence.Builder()
+                                .setRequestId(TravelModeGeofenceIntentService.KEY)
+                                .setCircularRegion(lat, lon, TravelModeGeofenceIntentService.GEOFENCE_RADIUS)
+                                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT | Geofence.GEOFENCE_TRANSITION_DWELL)
+//                                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
+//                                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                                .setLoiteringDelay(1000)
+                                .build();
+
+                        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
+                        builder.setInitialTrigger(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT | Geofence.GEOFENCE_TRANSITION_DWELL);
+//                        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL);
+//                                GeofencingRequest.INITIAL_TRIGGER_ENTER |
+//                                GeofencingRequest.INITIAL_TRIGGER_EXIT);
+
+                        builder.addGeofence(TravelModeGeofenceIntentService.mGeofence);
+
+
+                        mGeofenceList.add(TravelModeGeofenceIntentService.mGeofence);
+
+                        Intent intent = new Intent(getApplicationContext(), TravelModeGeofenceIntentService.class);
+//                        Intent intent = new Intent(TravelModeService.this, TravelModeGeofenceReceiver.class);
+                        TravelModeGeofenceIntentService.mGeofencePI = PendingIntent.getService(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                        PendingIntent pendingIntent = PendingIntent.getBroadcast(TravelModeService.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                        LocationServices.GeofencingApi.addGeofences(mGoogleApiClient,
+                                builder.build(),
+                                TravelModeGeofenceIntentService.mGeofencePI)
+                                .setResultCallback(new ResultCallback<Status>() {
+                                    @Override
+                                    public void onResult(Status status) {
+//                                        String str = status.getStatusMessage();
+//                                        Log.i("TRAVEL_MODE_SERVICE", str);
+                                    }
+                                });
+                    }
+                }
+
                 database.execSQL(String.format(insertLocationQueryFormat,
                         lat, lon, time, GoogleActivityIntentService._lastKnownActivityState, GoogleActivityIntentService._lastKnownActivityStateConfidence));
 
@@ -119,6 +167,7 @@ public class TravelModeService extends Service
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(ActivityRecognition.API)
+                .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
@@ -138,6 +187,7 @@ public class TravelModeService extends Service
 
     }
 
+    @Deprecated
     private class GoogleActivityReceiver extends BroadcastReceiver
     {
         @Override
@@ -148,6 +198,11 @@ public class TravelModeService extends Service
             GoogleActivityIntentService._lastKnownActivityStateConfidence = detectedActivity.getConfidence();
         }
     }
+
+
+
+
+
 
     public static class GoogleActivityIntentService extends IntentService
     {
@@ -272,8 +327,6 @@ public class TravelModeService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //return super.onStartCommand(intent, flags, startId);
-
-
         alarm.SetAlarm(TravelModeService.this);
         return Service.START_STICKY;
     }

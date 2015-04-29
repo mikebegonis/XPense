@@ -1,45 +1,46 @@
 package com.bekoal.xpense;
 
 import android.app.Activity;
-import android.app.ListActivity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
-import android.os.Parcelable;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.app.ListFragment;
-import android.widget.Toast;
 
 import com.bekoal.xpense.service.DatabaseHelper;
-import com.bekoal.xpense.service.QueryResult;
-import com.bekoal.xpense.service.TravelModeCommands;
-import com.bekoal.xpense.service.TravelModeService;
-
-import java.util.ArrayList;
 
 public class SummaryFragment extends ListFragment {
 
+    private ExpenseFragment mExpenseFragment;
+    OnTravelSelectedListener mCallback;
+
     TripAdapter mAdapter;
     ExpenseAdapter expenseAdapter;
-    private BroadcastReceiver _reciever = null;
     private DatabaseHelper dbHelper = null;
     private SQLiteDatabase db = null;
     private int layout;
+
+
+    public interface OnTravelSelectedListener{
+        public void onTripSelected(String query);
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+
+        try{
+            mCallback = (OnTravelSelectedListener) activity;
+        } catch (ClassCastException e){
+            throw new ClassCastException(activity.toString() + "must implement OnTripSelectedListener");
+        }
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -72,40 +73,23 @@ public class SummaryFragment extends ListFragment {
         String travelID = currentTrip.getmTravelID();
         String queryString = "SELECT * FROM Expenses WHERE TravelID = " + travelID;
 
-        expenseAdapter = new ExpenseAdapter(getActivity().getApplicationContext());
-        setListAdapter(expenseAdapter);
-
-        Cursor c = db.rawQuery(queryString, null);
-        while(c.moveToNext()) {
-            if (c.moveToNext()) {
-                String[] args = new String[c.getColumnCount()];
-                for (int i = 0; i < c.getColumnCount(); i++) {
-                    args[i] = c.getString(i);
-                }
-                Expense newExpense = new Expense(args);
-                expenseAdapter.addExpense(newExpense);
-            }
-        }
+        mCallback.onTripSelected(queryString);
 
 
-//        String toastString = new String();
+//        expenseAdapter = new ExpenseAdapter(getActivity().getApplicationContext());
+//        setListAdapter(expenseAdapter);
 //
-//        Trip currentTrip = (Trip) listView.getItemAtPosition(position);
-//        String travelID = currentTrip.getmTravelID();
-//        String queryString = "SELECT COUNT(*) FROM Expenses WHERE TravelID = " + travelID;
 //        Cursor c = db.rawQuery(queryString, null);
-//        while(c.moveToNext()){
-//            if(c.moveToNext()){
-//                toastString = c.getString(1);
+//        while(c.moveToNext()) {
+//            if (c.moveToNext()) {
+//                String[] args = new String[c.getColumnCount()];
+//                for (int i = 0; i < c.getColumnCount(); i++) {
+//                    args[i] = c.getString(i);
+//                }
+//                Expense newExpense = new Expense(args);
+//                expenseAdapter.addExpense(newExpense);
 //            }
 //        }
-//        c.moveToNext();
-//        toastString = c.getString(0);
-//
-//
-//       // String toastString = currentTrip.getmTravelID();
-//        Toast toast = Toast.makeText(getActivity().getApplicationContext(), toastString, Toast.LENGTH_LONG);
-//        toast.show();
     }
 
     @Override

@@ -22,13 +22,14 @@ import android.widget.Toast;
 import com.bekoal.xpense.service.DatabaseHelper;
 import com.bekoal.xpense.service.TravelModeService;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements SummaryFragment.OnTravelSelectedListener {
 
     public static int TAKE_PICTURE = 1;
 
     private AddFragment mAddFragment;
     private SummaryFragment mSummaryFragment;
     private TravelModeFragment mTravelModeFragment;
+    private ExpenseFragment mExpenseFragment;
 
     private ServiceConnection mConnection = null;
     private TravelModeService travelModeService = null;
@@ -53,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
 
         FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
         fTransaction.add(R.id.fragment_container, mSummaryFragment);
+        fTransaction.addToBackStack(null);
         fTransaction.commit();
 
         // Create buttons
@@ -65,7 +67,11 @@ public class MainActivity extends ActionBarActivity {
 
         summaryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mSummaryFragment).commit();
+                FragmentTransaction summaryTransaction = getFragmentManager().beginTransaction();
+                summaryTransaction.replace(R.id.fragment_container,mSummaryFragment);
+                summaryTransaction.addToBackStack(null);
+                summaryTransaction.commit();
+//                getFragmentManager().beginTransaction().replace(R.id.fragment_container, mSummaryFragment).commit();
             }
         });
 
@@ -101,6 +107,18 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    public void onTripSelected(String query){
+        mExpenseFragment = new ExpenseFragment();
+        Bundle args = new Bundle();
+        args.putString(ExpenseFragment.queryString, query);
+        mExpenseFragment.setArguments(args);
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mExpenseFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,6 +155,15 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         unbindService(mConnection);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0 ){
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public TravelModeService getTravelModeService() {

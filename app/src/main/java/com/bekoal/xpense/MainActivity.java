@@ -54,16 +54,13 @@ public class MainActivity extends ActionBarActivity implements SummaryFragment.O
 
         FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
         fTransaction.add(R.id.fragment_container, mSummaryFragment);
-        fTransaction.addToBackStack(null);
+//        fTransaction.addToBackStack(null);
         fTransaction.commit();
 
         // Create buttons
         final Button summaryButton = (Button) findViewById(R.id.summary_button);
         final Button addButton = (Button) findViewById(R.id.add_button);
         final Button travelModeButton = (Button) findViewById(R.id.travel_mode_button);
-
-        RadioGroup group = (RadioGroup) findViewById(R.id.radio_group);
-        group.check(R.id.summary_button);
 
         summaryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

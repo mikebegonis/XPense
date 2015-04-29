@@ -2,230 +2,67 @@ package com.bekoal.xpense;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.bekoal.xpense.service.DatabaseHelper;
-import com.bekoal.xpense.service.TravelModeCommands;
-import com.bekoal.xpense.service.TravelModeService;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AddFragment extends Fragment {
 
+    private AddTripFragment mAddTripFragment;
+    private AddExpenseFragment mAddExpenseFragment;
+
+    private LinearLayout background;
+
     String mCurrentPhotoPath = null;
-    ImageButton btnConfirm = null;
-    ImageButton btnCancel = null;
-    EditText txtDateTimeExpense = null;
-    EditText txtAmountExpense = null;
-    Spinner spinnerExpenseType = null;
-    EditText txtDescription = null;
-    Button addReceiptButton = null;
     ImageView receiptImage = null;
-
-    CheckBox expenseCheckBox = null;
-    CheckBox tripCheckBox = null;
-    EditText txtDestination = null;
-    EditText txtStartDate = null;
-    EditText txtEndDate = null;
-    EditText txtNotes = null;
-    Spinner spinnerTrip = null;
-
-    ArrayAdapter<String> spinnerAdapter = null;
-
-    private DatabaseHelper dbHelper = null;
-    private SQLiteDatabase db = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.add_fragment, container, false);
 
-        btnConfirm = (ImageButton)v.findViewById(R.id.btn_add_expense_confirm);
-        btnCancel = (ImageButton)v.findViewById(R.id.btn_add_expense_cancel);
-        txtDateTimeExpense = (EditText)v.findViewById(R.id.txtDateTime_Expense);
-        txtAmountExpense = (EditText)v.findViewById(R.id.txtAmount_Expense);
-        txtDescription = (EditText)v.findViewById(R.id.txtDescription_Expense);
-        spinnerExpenseType = (Spinner)v.findViewById(R.id.spinnerExpenseType);
-        addReceiptButton = (Button) v.findViewById(R.id.add_receipt_button);
-        receiptImage = (ImageView) v.findViewById(R.id.receipt_image);
+        mAddTripFragment = new AddTripFragment();
+        mAddExpenseFragment = new AddExpenseFragment();
 
+        background = (LinearLayout) getActivity().findViewById(R.id.background);
+        background.setPadding(16, 16, 16, 16);
 
-        expenseCheckBox = (CheckBox)v.findViewById(R.id.expenseCheckBox);
-        tripCheckBox = (CheckBox)v.findViewById(R.id.tripCheckBox);
-        txtDestination = (EditText)v.findViewById(R.id.destination);
-        txtStartDate = (EditText)v.findViewById(R.id.startDate);
-        txtEndDate = (EditText)v.findViewById(R.id.endDate);
-        txtNotes = (EditText)v.findViewById(R.id.note);
-        spinnerTrip = (Spinner)v.findViewById(R.id.spinnerTrip);
+        // Default to the add trip fragment
+        FragmentManager mFragmentManager = getFragmentManager();
 
-        dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        db = dbHelper.getReadableDatabase();
-        spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, android.R.id.text1);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTrip.setAdapter(spinnerAdapter);
+        FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
+        fTransaction.add(R.id.add_fragment_container, mAddTripFragment);
+        fTransaction.commit();
 
-        Cursor c = db.rawQuery("SELECT TravelID FROM Travel", null);
-        while(c.moveToNext()) {
-            if (c.moveToNext()) {
-                String arg = new String();
-                for (int i = 0; i < c.getColumnCount(); i++) {
-                    arg = c.getString(i);
-                }
-                spinnerAdapter.add(arg);
-            }
-        }
+        // Create buttons
+        final Button addTripButton = (Button) v.findViewById(R.id.add_trip_button);
+        final Button addExpenseButton = (Button) v.findViewById(R.id.add_expense_button);
 
-        expenseCheckBox.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                if(tripCheckBox.isChecked())
-                    tripCheckBox.setChecked(false);
-            }
-        });
-
-        tripCheckBox.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                if(expenseCheckBox.isChecked())
-                    expenseCheckBox.setChecked(false);
-            }
-        });
-
-        addReceiptButton.setOnClickListener(new View.OnClickListener() {
+        addTripButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-//                intent.setType("image/*");
-//                intent.putExtra("return-data", true);
-
-                File photoFile = null;
-
-                // Create an image file name
-                try {
-                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                    String imageFileName = "JPEG_" + timeStamp + "_";
-                    File storageDir = Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES);
-                    photoFile = File.createTempFile(
-                            imageFileName,  /* prefix */
-                            ".jpg",         /* suffix */
-                            storageDir      /* directory */
-                    );
-
-                    // Save a file: path for use with ACTION_VIEW intents
-                    mCurrentPhotoPath =  photoFile.getAbsolutePath();
-                } catch (IOException e) {
-                    // Error
-                    Log.e("Camera", "Unable to create file for photo");
-                }
-
-                // Continue only if the File was successfully created
-                if (photoFile != null) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                    startActivityForResult(intent, MainActivity.TAKE_PICTURE);
-                }
+                getFragmentManager().beginTransaction().replace(R.id.add_fragment_container, mAddTripFragment).commit();
             }
         });
 
-        receiptImage.setOnClickListener(new View.OnClickListener() {
-            @Override
+        addExpenseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-
-                intent.setData(getImageUri(getActivity(), ((BitmapDrawable) receiptImage.getDrawable()).getBitmap()));
-                startActivity(intent);
-            }
-        });
-
-
-
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(expenseCheckBox.isChecked() && !tripCheckBox.isChecked()) {
-                    String strQuery = "INSERT INTO Expenses("
-                            + "Date, Amount, Description, Img, Location, Type, TravelID) VALUES(";
-                    strQuery += String.format("'%s', %s, '%s', '%s', NULL, '%s', '%s');",
-                            txtDateTimeExpense.getText().toString(),
-                            txtAmountExpense.getText().toString(),
-                            txtDescription.getText().toString().replace("'", "''"),
-                            mCurrentPhotoPath,
-                            spinnerExpenseType.getSelectedItem().toString(),
-                            spinnerTrip.getSelectedItem().toString());
-
-                    ((MainActivity) getActivity()).getDatabase().execSQL(strQuery);
-                }
-
-
-                else if(!expenseCheckBox.isChecked() && tripCheckBox.isChecked()) {
-                    String strQuery = "INSERT INTO Travel("
-                            + "StartDate, EndDate, Title, Status, Note, TravelID) VALUES(";
-                    strQuery += String.format("'%s', '%s', '%s', '%s', '%s', NULL);",
-                            txtStartDate.getText().toString(),
-                            txtEndDate.getText().toString(),
-                            txtDestination.getText().toString(),
-                            "NOT_DONE",
-                            txtNotes.getText());
-
-                    ((MainActivity) getActivity()).getDatabase().execSQL(strQuery);
-                }
-
-
-                else{
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                            "Make sure a checkbox is selected!",
-                            Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txtAmountExpense.setText("");
-                txtDateTimeExpense.setText("");
-                txtDescription.setText("");
-                spinnerExpenseType.setSelection(0);
-                spinnerTrip.setSelection(0);
-                receiptImage.setVisibility(View.INVISIBLE);
-                receiptImage.setImageBitmap(null);
-
-
-                expenseCheckBox.setChecked(false);
-                tripCheckBox.setChecked(false);
-                txtDestination.setText("");
-                txtNotes.setText("");
-                txtStartDate.setText("");
-                txtEndDate.setText("");
+                getFragmentManager().beginTransaction().replace(R.id.add_fragment_container, mAddExpenseFragment).commit();
             }
         });
 

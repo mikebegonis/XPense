@@ -63,9 +63,12 @@ public class ExpenseAdapter extends BaseAdapter {
 
         final TextView dateView = (TextView) resultingView.findViewById(R.id.date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        String dateText = dateFormat.format(expense.getDate());
+        if(expense.getDate() != null) {
+            String dateText = dateFormat.format(expense.getDate());
+            dateView.setText(dateText);
+        }
 //        String dateText = expense.getDate().toString();
-        dateView.setText(dateText);
+
 
         return resultingView;
     }

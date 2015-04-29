@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private  static final String TABLE_EXPENSES = "Expenses";
+    private static final String TABLE_EXPENSES = "Expenses";
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "XDatabase";
@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_EXPENSES = "CREATE TABLE IF NOT EXISTS Expenses (" +
             "`Date` TEXT NOT NULL, " +
-            "`Amount` REAL NOT NULL, " +
+            "`Amount` DECIMAL, " +
             "`Description` TEXT, " +
             "`Img` TEXT, " +
             "`Location` TEXT, " +
@@ -41,8 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "`TravelID` INTEGER PRIMARY KEY AUTOINCREMENT " +
             ");";
 
-    public DatabaseHelper(Context context)
-    {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -58,3 +57,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 }
+

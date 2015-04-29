@@ -63,11 +63,11 @@ public class TripAdapter extends BaseAdapter {
         endDateView.setText(endDateText);
 
         final TextView totalView = (TextView) resultingView.findViewById(R.id.total);
-        String totalText = Integer.toString(trip.getmTotal());
+        String totalText = trip.getmTotal();
         totalView.setText(totalText);
 
         final TextView noteView = (TextView) resultingView.findViewById(R.id.note);
-        String noteText = trip.getmNote();
+        String noteText = trip.getmNote().replace("//","'");
         noteView.setText(noteText);
 
         return resultingView;

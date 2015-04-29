@@ -41,7 +41,6 @@ public class SummaryFragment extends ListFragment {
     private int layout;
     private LinearLayout background = null;
 
-
     public interface OnTravelSelectedListener{
         public void onTripSelected(String query);
     }

@@ -27,8 +27,6 @@ public class AddFragment extends Fragment {
     private AddTripFragment mAddTripFragment;
     private AddExpenseFragment mAddExpenseFragment;
 
-    private LinearLayout background;
-
     String mCurrentPhotoPath = null;
     ImageView receiptImage = null;
 
@@ -39,9 +37,6 @@ public class AddFragment extends Fragment {
 
         mAddTripFragment = new AddTripFragment();
         mAddExpenseFragment = new AddExpenseFragment();
-
-        background = (LinearLayout) getActivity().findViewById(R.id.background);
-        background.setPadding(16, 16, 16, 16);
 
         // Default to the add trip fragment
         FragmentManager mFragmentManager = getFragmentManager();

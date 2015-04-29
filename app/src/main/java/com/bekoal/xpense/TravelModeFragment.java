@@ -27,7 +27,6 @@ public class TravelModeFragment extends Fragment {
 
     private boolean isInTravelMode = false;
 
-    private LinearLayout background;
     private DatabaseHelper dbHelper = null;
     private SQLiteDatabase db = null;
 
@@ -43,9 +42,6 @@ public class TravelModeFragment extends Fragment {
 
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
         db = dbHelper.getWritableDatabase();
-
-        background = (LinearLayout) getActivity().findViewById(R.id.background);
-        background.setPadding(16, 16, 16, 16);
 
         mTravelModeCheckbox = (CheckBox)view.findViewById(R.id.travel_mode_checkbox);
         mTravelModeCheckbox.setChecked(isInTravelMode);

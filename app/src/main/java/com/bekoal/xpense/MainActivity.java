@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
         mSummaryFragment = new SummaryFragment();
         mAddFragment = new AddFragment();
         mTravelModeFragment = new TravelModeFragment();
-
+        
         // Default to the summary fragment
         FragmentManager mFragmentManager = getFragmentManager();
 

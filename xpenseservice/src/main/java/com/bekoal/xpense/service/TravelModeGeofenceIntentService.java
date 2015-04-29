@@ -43,7 +43,7 @@ public class TravelModeGeofenceIntentService extends IntentService
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Toast.makeText(this, "HOLY SHIT IT WORKED", Toast.LENGTH_LONG).show();
+
         GeofencingEvent event = GeofencingEvent.fromIntent(intent);
         if(!event.hasError())
         {
@@ -93,15 +93,17 @@ public class TravelModeGeofenceIntentService extends IntentService
         }
     }
 
-    private void CancelGeofence()
+    public static void CancelGeofence()
     {
-        LocationServices.GeofencingApi.removeGeofences(TravelModeService.mGoogleApiClient,
-                mGeofencePI).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(Status status) {
+        if(mGeofencePI != null) {
+            LocationServices.GeofencingApi.removeGeofences(TravelModeService.mGoogleApiClient,
+                    mGeofencePI).setResultCallback(new ResultCallback<Status>() {
+                @Override
+                public void onResult(Status status) {
 
-            }
-        });
+                }
+            });
+        }
 
         mGeofence = null;
 

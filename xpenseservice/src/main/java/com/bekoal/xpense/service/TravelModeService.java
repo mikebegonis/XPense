@@ -317,6 +317,8 @@ public class TravelModeService extends Service
     {
         isInTravelMode = false;
         locationManager.removeUpdates(listener);
+        TravelModeGeofenceIntentService.CancelGeofence();
+
         SharedPreferences prefs = this.getSharedPreferences("com.bekoal.xpense", Context.MODE_PRIVATE);
         prefs.edit().putBoolean(IS_TRAVEL_MODE_ACTIVE, isInTravelMode).commit();
 

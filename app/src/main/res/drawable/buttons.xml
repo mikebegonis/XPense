@@ -2,30 +2,36 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape>
-            <gradient
-                android:startColor="@color/titleButtonCheckedGradientDark"
-                android:centerColor="@color/titleButtonCheckedGradientGrey"
-                android:endColor="@color/titleButtonCheckedGradientDark"
-                android:angle="270" />
+            <solid
+                 android:color="#F2F2F2" />
             <stroke
                 android:width="1dp"
-                android:color="@color/titleButtonBorder" />
+                android:color="#A4A4A4" />
             <corners
-                android:radius="5dp" />
+                android:radius="6dp" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
         </shape>
     </item>
     <item android:state_checked="false">
         <shape>
             <gradient
-                android:startColor="@color/titleButtonCheckedGradientLight"
-                android:centerColor="@color/titleButtonCheckedGradientDark"
-                android:endColor="@color/titleButtonCheckedGradientDark"
+                android:startColor="#F2F2F2"
+                android:endColor="#A4A4A4"
                 android:angle="270" />
             <stroke
                 android:width="1dp"
-                android:color="@color/titleButtonBorder" />
+                android:color="#A4A4A4" />
             <corners
-                android:radius="5dp" />
+                android:radius="6dp" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
         </shape>
     </item>
     <!--    <item android:drawable="@drawable/button_normal" android:state_checked="false"/>-->

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.CheckBox;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.EditText;
 import android.widget.Toast;
 

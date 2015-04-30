@@ -23,7 +23,7 @@
 
     <string name="add_string">Add:</string>
     <string name="expense_label">Add an expense</string>
-    <string name="trip_label">Or add a label</string>
+    <string name="trip_label">Or add a trip</string>
 
     <string name="travel_mode_string">Travel Mode:</string>
     <string name="travel_mode_prompt_string">Activate Travel Mode:</string>
@@ -34,6 +34,8 @@
     <string name="add_button">Add</string>
     <string name="travel_mode_button">Travel Mode</string>
     <string name="add_receipt">Add</string>
+    <string name="add_trip_button">Trip</string>
+    <string name="add_expense_button">Expense</string>
 
     <string name="expense_choose_type">Type</string>
     <string name="set">Set</string>

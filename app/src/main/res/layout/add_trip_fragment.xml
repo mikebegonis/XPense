@@ -1,0 +1,105 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/destination_view"/>
+
+            <EditText
+                android:id="@+id/destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_date"/>
+
+            <EditText
+                android:id="@+id/startDate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/end_date"/>
+
+
+            <EditText
+                android:id="@+id/endDate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/notes_view"/>
+
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageButton
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:background="@drawable/button_shape_confirm"
+                android:src="@drawable/btn_check_buttonless_off"
+                android:scaleType="fitCenter"
+                android:layout_marginStart="57dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/btn_add_expense_confirm"/>
+
+            <ImageButton
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:background="@drawable/button_shape_cancel"
+                android:src="@drawable/ic_menu_close_clear_cancel"
+                android:scaleType="fitCenter"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="81dp"
+                android:id="@+id/btn_add_expense_cancel"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

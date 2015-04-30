@@ -28,7 +28,7 @@ public class Trip extends DatabaseItem {
     private Date mEndDate = new Date();
     private String mNote = new String();
     private String mTravelID = new String();
-    private int mTotal = 0;
+    private String mTotal = new String();
 
     public Trip(String[] args){
         super("TravelID", "Travel");
@@ -57,6 +57,9 @@ public class Trip extends DatabaseItem {
 
         if(args[5] != null)
             mTravelID = args[5];
+
+        if(args[6] != null)
+            mTotal = args[6];
     }
 
 //    Constructor for Trip object, from explicitly passed data
@@ -130,9 +133,9 @@ public class Trip extends DatabaseItem {
         this.mEndDate = mEndDate;
     }
 
-    public int getmTotal() {return mTotal; }
+    public String getmTotal() {return mTotal; }
 
-    public void setmTotal(int mTotal) {this.mTotal = mTotal; }
+    public void setmTotal(String mTotal) {this.mTotal = mTotal; }
 
     public String getmNote() { return mNote; }
 

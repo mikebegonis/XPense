@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff8e8e8e"
+    android:background="#89b455"
     android:id="@+id/trip">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceLarge"
         android:text="Trip"
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dates(s): "
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_below="@+id/title"
         android:layout_alignParentStart="true" />
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="10/11/2012   - "
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_alignTop="@+id/datePrefix"
         android:layout_alignParentStart="true"
         android:layout_marginStart="100dp"/>
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="11/12/2013"
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_toRightOf="@id/startDate"
         android:layout_alignTop="@id/startDate"
         android:layout_alignParentStart="true"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Running Total: "
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_below="@+id/datePrefix"
         android:layout_alignParentStart="true" />
 
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="$120"
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_below="@+id/startDate"
         android:layout_alignStart="@+id/startDate" />
 
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Notes: "
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_below="@id/totalPrefix" />
 
     <TextView
@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" - "
-        android:textColor="#ffffffff"
+        android:textColor="#ffffff"
         android:layout_below="@id/total"
         android:layout_alignStart="@id/total"/>
 

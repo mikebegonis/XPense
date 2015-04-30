@@ -5,3 +5,4 @@
 .DS_Store
 /build
 xpenseservice/build
+app/src/main/java/com/bekoal/xpense/SummaryFragment.java

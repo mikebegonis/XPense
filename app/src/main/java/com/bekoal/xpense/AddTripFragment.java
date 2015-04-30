@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.bekoal.xpense.service.DatabaseHelper;
 
 public class AddTripFragment extends Fragment {
@@ -41,8 +43,8 @@ public class AddTripFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String strQuery = "INSERT INTO Travel("
-                        + "StartDate, EndDate, Title, Status, Note, TravelID) VALUES(";
-                strQuery += String.format("'%s', '%s', '%s', '%s', '%s', NULL);",
+                        + "StartDate, EndDate, Title, Status, Note) VALUES(";
+                strQuery += String.format("'%s', '%s', '%s', '%s', '%s');",
                         txtStartDate.getText().toString(),
                         txtEndDate.getText().toString(),
                         txtDestination.getText().toString().replace("'",""),
@@ -50,6 +52,7 @@ public class AddTripFragment extends Fragment {
                         txtNotes.getText().toString().replace("'","//"));
 
                 ((MainActivity) getActivity()).getDatabase().execSQL(strQuery);
+                Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
             }
         });
 

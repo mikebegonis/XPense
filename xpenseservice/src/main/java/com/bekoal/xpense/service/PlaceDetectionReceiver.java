@@ -1,5 +1,7 @@
 package com.bekoal.xpense.service;
 
+import android.app.AlertDialog;
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -44,7 +46,7 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
 
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
 
         final Context mContext = context;
         final double lat = intent.getDoubleExtra(LATITUDE, 0);
@@ -99,10 +101,20 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
                                 String name = currData.getString("name");
                                 String address = currData.getString("vicinity");
 
-                                Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=" + address));
+//                                Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=" + address));
+//
+//                                PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0,
+//                                        geoIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                                PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0,
-                                        geoIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                Intent mainIntent = new Intent("com.bekoal.xpense.ADD_EXPENSE");
+                                mainIntent.putExtra("NAME", name);
+                                mainIntent.putExtra("ADDRESS", address);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, 0, mainIntent, 0);
+
+
+
 
 
                                 Notification.Builder mBuilder =
@@ -110,8 +122,8 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
                                                 .setAutoCancel(true)
                                                 .setSmallIcon(android.R.drawable.stat_sys_warning)
                                                 .setContentIntent(pendingIntent)
-                                                .setContentTitle(name)
-                                                .setContentText(address);
+                                                .setContentTitle("XPense")
+                                                .setContentText("Did you have a business lunch at " + name + "today?");
 
 
                                 manager.notify(id++, mBuilder.build());
@@ -200,5 +212,17 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
 //        manager.notify(696969, mBuilder.build());
 
 
+    }
+
+    public class NotifyUserService extends IntentService
+    {
+        public NotifyUserService() {
+            super("Notify User Service");
+        }
+
+        @Override
+        protected void onHandleIntent(Intent intent) {
+
+        }
     }
 }

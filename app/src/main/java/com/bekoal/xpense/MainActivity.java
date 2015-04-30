@@ -1,5 +1,6 @@
 package com.bekoal.xpense;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -49,13 +51,7 @@ public class MainActivity extends ActionBarActivity implements SummaryFragment.O
         mAddFragment = new AddFragment();
         mTravelModeFragment = new TravelModeFragment();
         
-        // Default to the summary fragment
-        FragmentManager mFragmentManager = getFragmentManager();
 
-        FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
-        fTransaction.add(R.id.fragment_container, mSummaryFragment);
-//        fTransaction.addToBackStack(null);
-        fTransaction.commit();
 
         // Create buttons
         final Button summaryButton = (Button) findViewById(R.id.summary_button);
@@ -101,6 +97,39 @@ public class MainActivity extends ActionBarActivity implements SummaryFragment.O
                 Toast.makeText(MainActivity.this, "Disconnected from background service", Toast.LENGTH_LONG).show();
             }
         };
+
+
+        // Default to the summary fragment
+        FragmentManager mFragmentManager = getFragmentManager();
+
+        FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
+
+        Fragment fragment = mSummaryFragment;
+
+        try
+        {
+            Intent intent = getIntent();
+
+            if(intent.hasExtra("NAME")) {
+                Bundle args = new Bundle();
+                args.putString("NAME", intent.getStringExtra("NAME"));
+                args.putString("ADDRESS", intent.getStringExtra("ADDRESS"));
+
+                mAddFragment.setArguments(args);
+                fragment = mAddFragment;
+                ((RadioButton)addButton).toggle();
+            }
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        fTransaction.add(R.id.fragment_container, fragment);
+//        fTransaction.addToBackStack(null);
+        fTransaction.commit();
 
     }
 

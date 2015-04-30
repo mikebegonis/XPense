@@ -24,10 +24,11 @@ public class TravelModeGeofenceIntentService extends IntentService
 
     //public static long TRIGGER_TIME = 60 * 1000;
 //    public static long TRIGGER_TIME = 5 * 60 * 1000;
-    public static long TRIGGER_TIME = 10 * 1000;
+    public static long TRIGGER_TIME = (long)0.15 * 1000;
 
     // in meters
-    public static float GEOFENCE_RADIUS = 1000f;
+//    public static float GEOFENCE_RADIUS = 1000f;
+    public static float GEOFENCE_RADIUS = 300f;
 
     private static Calendar mTimeDifference;
 

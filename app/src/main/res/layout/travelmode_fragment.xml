@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center|top"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        >
 
         <TextView
             android:layout_width="fill_parent"
@@ -45,7 +46,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center|top"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/txt_set_trigger_time"
@@ -70,7 +72,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center|top"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/txt_set_geofence_radius"
@@ -96,7 +99,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center|top"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/txt_set_places_radius"

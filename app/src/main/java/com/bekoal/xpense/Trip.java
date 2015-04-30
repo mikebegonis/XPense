@@ -58,7 +58,8 @@ public class Trip extends DatabaseItem {
         if(args[5] != null)
             mTravelID = args[5];
 
-        if(args[6] != null)
+        if(args.length > 6 &&
+                args[6] != null)
             mTotal = args[6];
     }
 

@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AddExpenseFragment extends Fragment {
@@ -46,7 +47,7 @@ public class AddExpenseFragment extends Fragment {
     ImageView receiptImage = null;
     Spinner spinnerTrip = null;
 
-    ArrayAdapter<String> spinnerAdapter = null;
+    TripSpinnerAdapter spinnerAdapter = null;
 
     private DatabaseHelper dbHelper = null;
     private SQLiteDatabase db = null;
@@ -68,19 +69,19 @@ public class AddExpenseFragment extends Fragment {
 
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
         db = dbHelper.getReadableDatabase();
-        spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, android.R.id.text1);
+        spinnerAdapter = new TripSpinnerAdapter(getActivity(), android.R.layout.simple_spinner_item, android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTrip.setAdapter(spinnerAdapter);
 
-        Cursor c = db.rawQuery("SELECT Title FROM Travel", null);
+        Cursor c = db.rawQuery("SELECT * FROM Travel", null);
         while(c.moveToNext()) {
-            if (c.moveToNext()) {
-                String arg = new String();
-                for (int i = 0; i < c.getColumnCount(); i++) {
-                    arg = c.getString(i);
-                }
-                spinnerAdapter.add(arg);
+
+            String[] arg = new String[c.getColumnCount()];
+            for (int i = 0; i < c.getColumnCount(); i++) {
+                arg[i] = c.getString(i);
             }
+            spinnerAdapter.add(new Trip(arg));
+
         }
 
         addReceiptButton.setOnClickListener(new View.OnClickListener() {
@@ -135,25 +136,29 @@ public class AddExpenseFragment extends Fragment {
 
                 BigDecimal amount = new BigDecimal(txtAmountExpense.getText().toString());
 
-                String travelID = new String();
-                if(spinnerTrip.getSelectedItemPosition() == 0)
-                    travelID = "2";
-                else
-                    travelID = Integer.toString((spinnerTrip.getSelectedItemPosition() + 1) * 2);
+                String travelID = ((Trip)spinnerTrip.getSelectedView().getTag()).getmTravelID();
+//                if(spinnerTrip.getSelectedItemPosition() == 0)
+//                    travelID = "2";
+//                else
+//                    travelID = Integer.toString((spinnerTrip.getSelectedItemPosition() + 1) * 2);
+
+
 
 
                 String strQuery = "INSERT INTO Expenses("
                         + "Date, Amount, Description, Img, Location, Type, TravelID) VALUES(";
                 try {
-                    strQuery += String.format("'%s', %s, '%s', '%s', NULL, '%s', '%s');",
+                    Trip trip = (Trip)spinnerExpenseType.getSelectedView().getTag();
+                    strQuery += String.format("'%s', %s, '%s', '%s', NULL, '%s', %s);",
                             txtDateTimeExpense.getText().toString(),
                             amount,
                             txtDescription.getText().toString().replace("'", "''"),
                             mCurrentPhotoPath,
-                            spinnerExpenseType.getSelectedItem().toString(),
+                            spinnerExpenseType.getSelectedItem().toString().replace(" ", ""),
                             travelID);
 
                     ((MainActivity) getActivity()).getDatabase().execSQL(strQuery);
+                    Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(),
                             "Please fill in more information", Toast.LENGTH_LONG);
@@ -174,6 +179,14 @@ public class AddExpenseFragment extends Fragment {
                 receiptImage.setImageBitmap(null);
             }
         });
+
+        Bundle args = getArguments();
+        if(args != null
+                && args.containsKey("NAME"))
+        {
+            txtDescription.setText(args.getString("NAME", ""));
+
+        }
 
         return v;
     }

@@ -69,6 +69,8 @@ public class ExpenseAdapter extends BaseAdapter {
         }
 //        String dateText = expense.getDate().toString();
 
+        resultingView.setTag(getItem(pos));
+
 
         return resultingView;
     }

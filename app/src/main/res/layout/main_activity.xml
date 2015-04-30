@@ -3,10 +3,7 @@
     android:id="@+id/background"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp" tools:context=".MainActivity"
+     tools:context=".MainActivity"
     android:background="#dac0c0c0">
 
     <FrameLayout

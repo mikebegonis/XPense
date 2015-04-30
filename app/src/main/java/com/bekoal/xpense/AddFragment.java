@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,12 +39,7 @@ public class AddFragment extends Fragment {
         mAddTripFragment = new AddTripFragment();
         mAddExpenseFragment = new AddExpenseFragment();
 
-        // Default to the add trip fragment
-        FragmentManager mFragmentManager = getFragmentManager();
 
-        FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
-        fTransaction.add(R.id.add_fragment_container, mAddTripFragment);
-        fTransaction.commit();
 
         // Create buttons
         final Button addTripButton = (Button) v.findViewById(R.id.add_trip_button);
@@ -61,12 +57,43 @@ public class AddFragment extends Fragment {
             }
         });
 
+
+        // Default to the add trip fragment
+        FragmentManager mFragmentManager = getFragmentManager();
+
+        FragmentTransaction fTransaction = mFragmentManager.beginTransaction();
+
+        Fragment fragment = mAddTripFragment;
+
+        try
+        {
+            Bundle args = getArguments();
+            if(args.containsKey("NAME"))
+            {
+                mAddExpenseFragment.setArguments(args);
+                fragment = mAddExpenseFragment;
+                ((RadioButton)addExpenseButton).toggle();
+
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        fTransaction.add(R.id.add_fragment_container, fragment);
+        fTransaction.commit();
+
+
+
         return v;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
 

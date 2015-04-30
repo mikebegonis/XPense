@@ -70,6 +70,8 @@ public class TripAdapter extends BaseAdapter {
         String noteText = trip.getmNote().replace("//","'");
         noteView.setText(noteText);
 
+        resultingView.setTag(trip);
+
         return resultingView;
     }
 

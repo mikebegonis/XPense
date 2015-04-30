@@ -7,11 +7,25 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+
+
 
     <application
         android:allowBackup="true"
         android:label="@string/app_name" >
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/API_KEY" />
+
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.version"-->
+            <!--android:value="4242000" />-->
+
         <provider
             android:name=".XPenseContentProvider"
             android:authorities="com.bekoal.xpense.service"
@@ -25,6 +39,13 @@
             android:exported="true" >
         </service>
 
+        <service android:name=".TravelModeService$GoogleActivityIntentService"></service>
+
+        <service android:name=".TravelModeGeofenceIntentService"
+            android:exported="true"></service>
+
+        <service android:name=".PlaceDetectionReceiver$NotifyUserService"></service>
+
         <receiver
             android:name=".TravelModeReceiver"
             android:process=":TravelModeReceiverProcess"
@@ -33,6 +54,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".PlaceDetectionReceiver"
+            ></receiver>
 
         <receiver android:name=".StartTravelModeReceiver">
 

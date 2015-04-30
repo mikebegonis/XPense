@@ -36,6 +36,7 @@
     <string name="add_receipt">Add</string>
 
     <string name="expense_choose_type">Type</string>
+    <string name="set">Set</string>
 
     <string-array name="expense_types">
         <item>Food</item>

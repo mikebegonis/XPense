@@ -40,6 +40,8 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
 
+    public static float PLACE_RADIUS = 100f;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -57,12 +59,14 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
 
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=" + lat + "," + lon);
-        googlePlacesUrl.append("&radius=" + TravelModeGeofenceIntentService.GEOFENCE_RADIUS);
+        googlePlacesUrl.append("&rankby=distance");
+//        googlePlacesUrl.append("&radius=" + PLACE_RADIUS);
 //        googlePlacesUrl.append("&radius=" + 100);
-        googlePlacesUrl.append("&types=" + "food");
+        googlePlacesUrl.append("&types=" + "restaurant");
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&key=" + context.getString(R.string.HTTP_API_KEY));
         final String url = googlePlacesUrl.toString();
+        Log.w("PLACEDETECT", url);
         final NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         AsyncTask<Void, Integer, String> task = new AsyncTask<Void, Integer, String>() {
             @Override
@@ -73,7 +77,7 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-
+                Log.w("PLACEDETECT", "onPostExecute");
                 String responseData = s;
                 JSONObject data = null;
                 try {
@@ -111,6 +115,7 @@ public class PlaceDetectionReceiver extends BroadcastReceiver{
 
 
                                 manager.notify(id++, mBuilder.build());
+                                break;
                             }
                             catch(Exception ex)
                             {

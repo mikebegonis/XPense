@@ -16,8 +16,12 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.CheckBox;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bekoal.xpense.service.DatabaseHelper;
+import com.bekoal.xpense.service.PlaceDetectionReceiver;
+import com.bekoal.xpense.service.TravelModeGeofenceIntentService;
 import com.bekoal.xpense.service.TravelModeService;
 
 public class TravelModeFragment extends Fragment {
@@ -32,7 +36,7 @@ public class TravelModeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.travelmode_fragment, container, false);
+        final View view = inflater.inflate(R.layout.travelmode_fragment, container, false);
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences("com.bekoal.xpense",
                 Context.MODE_PRIVATE);
@@ -68,6 +72,64 @@ public class TravelModeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         db.execSQL("DELETE FROM Locations");
+                    }
+                });
+
+        view.findViewById(R.id.btn_set_geofence_radius)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String value = ((EditText)view.findViewById(R.id.txt_set_geofence_radius))
+                                .getText().toString();
+                        try
+                        {
+                            float num = Float.parseFloat(value);
+                            TravelModeGeofenceIntentService.GEOFENCE_RADIUS = num;
+                            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                        }
+                        catch(Exception e)
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+        view.findViewById(R.id.btn_set_places_radius)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String value = ((EditText)view.findViewById(R.id.txt_set_places_radius))
+                                .getText().toString();
+                        try
+                        {
+                            float num = Float.parseFloat(value);
+                            PlaceDetectionReceiver.PLACE_RADIUS = num;
+                            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                        }
+                        catch(Exception e)
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        view.findViewById(R.id.btn_set_trigger_time)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String value = ((EditText)view.findViewById(R.id.txt_set_trigger_time))
+                                .getText().toString();
+                        try
+                        {
+                            long num = (long)(Double.parseDouble(value) * 60 * 1000);
+                            TravelModeGeofenceIntentService.TRIGGER_TIME = num;
+                            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                        }
+                        catch(Exception e)
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

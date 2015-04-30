@@ -98,9 +98,11 @@ public class TravelModeService extends Service
                 double lon = location.getLongitude();
                 Calendar calendar = Calendar.getInstance();
                 String time = SimpleDateFormat.getDateTimeInstance().format(calendar.getTime());
+                Log.w("TRAVELMODESERVICE", String.format("New Location: %f , %f", lat, lon));
 
                 if(GoogleActivityIntentService._lastKnownActivityState != DetectedActivity.IN_VEHICLE) {
                     if (TravelModeGeofenceIntentService.mGeofence == null) {
+                        Log.w("TRAVELMODESERVICE", "Creating new Geofence");
                         TravelModeGeofenceIntentService.mLatGeofence = lat;
                         TravelModeGeofenceIntentService.mLonGeofence = lon;
                         List<Geofence> mGeofenceList = new ArrayList<Geofence>();
@@ -141,6 +143,11 @@ public class TravelModeService extends Service
                                     }
                                 });
                     }
+                }
+                else // if we're in a vehicle
+                {
+                    if(TravelModeGeofenceIntentService.mGeofence != null)
+                        TravelModeGeofenceIntentService.CancelGeofence();
                 }
 
                 database.execSQL(String.format(insertLocationQueryFormat,
@@ -190,22 +197,6 @@ public class TravelModeService extends Service
 
     }
 
-    @Deprecated
-    private class GoogleActivityReceiver extends BroadcastReceiver
-    {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
-            DetectedActivity detectedActivity = result.getMostProbableActivity();
-            GoogleActivityIntentService._lastKnownActivityState = detectedActivity.describeContents();
-            GoogleActivityIntentService._lastKnownActivityStateConfidence = detectedActivity.getConfidence();
-        }
-    }
-
-
-
-
-
 
     public static class GoogleActivityIntentService extends IntentService
     {
@@ -221,8 +212,23 @@ public class TravelModeService extends Service
             if(ActivityRecognitionResult.hasResult(intent)) {
                 ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
                 DetectedActivity detectedActivity = result.getMostProbableActivity();
-                _lastKnownActivityState = detectedActivity.getType();
-                _lastKnownActivityStateConfidence = detectedActivity.getConfidence();
+//                _lastKnownActivityState = detectedActivity.getType();
+//                _lastKnownActivityStateConfidence = detectedActivity.getConfidence();
+
+                if(detectedActivity.getType() == DetectedActivity.UNKNOWN
+                        && detectedActivity.getConfidence() > 80)
+                {
+                    _lastKnownActivityState = detectedActivity.getType();
+                    _lastKnownActivityStateConfidence = detectedActivity.getConfidence();
+                }
+                if(detectedActivity.getConfidence() > 60)
+                {
+                    _lastKnownActivityState = detectedActivity.getType();
+                    _lastKnownActivityStateConfidence = detectedActivity.getConfidence();
+                }
+
+
+
             }
         }
 

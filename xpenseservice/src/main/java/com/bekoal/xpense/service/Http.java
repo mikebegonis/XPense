@@ -30,6 +30,7 @@ public class Http {
         String httpData = "";
         InputStream inputStream = null;
         HttpsURLConnection connection = null;
+        Log.w("HTTP_QUERY", "Http begining");
         try {
             URL url = new URL(httpUrl);
             connection = (HttpsURLConnection) url.openConnection();
@@ -52,10 +53,11 @@ public class Http {
             bufferedReader.close();
             inputStream.close();
         } catch (Exception e) {
-            Log.i("Ex - reading Http url", e.toString());
+            Log.e("Ex - reading Http url", e.toString());
         } finally {
             connection.disconnect();
         }
+        Log.w("HTTP_QUERY", "Http complete");
         return httpData;
     }
 }

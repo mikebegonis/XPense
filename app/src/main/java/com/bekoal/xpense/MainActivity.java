@@ -98,7 +98,6 @@ public class MainActivity extends ActionBarActivity implements SummaryFragment.O
             }
         };
 
-
         // Default to the summary fragment
         FragmentManager mFragmentManager = getFragmentManager();
 
@@ -126,11 +125,9 @@ public class MainActivity extends ActionBarActivity implements SummaryFragment.O
             e.printStackTrace();
         }
 
-
         fTransaction.add(R.id.fragment_container, fragment);
 //        fTransaction.addToBackStack(null);
         fTransaction.commit();
-
     }
 
     @Override

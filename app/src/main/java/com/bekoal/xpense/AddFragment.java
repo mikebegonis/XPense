@@ -39,8 +39,6 @@ public class AddFragment extends Fragment {
         mAddTripFragment = new AddTripFragment();
         mAddExpenseFragment = new AddExpenseFragment();
 
-
-
         // Create buttons
         final Button addTripButton = (Button) v.findViewById(R.id.add_trip_button);
         final Button addExpenseButton = (Button) v.findViewById(R.id.add_expense_button);
@@ -81,11 +79,8 @@ public class AddFragment extends Fragment {
             e.printStackTrace();
         }
 
-
         fTransaction.add(R.id.add_fragment_container, fragment);
         fTransaction.commit();
-
-
 
         return v;
     }
@@ -93,11 +88,6 @@ public class AddFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
-
     }
 
     @Override

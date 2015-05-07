@@ -1,17 +1,24 @@
 package com.bekoal.xpense;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bekoal.xpense.service.DatabaseHelper;
+
+import java.util.Calendar;
 
 public class AddTripFragment extends Fragment {
     String mCurrentPhotoPath = null;
@@ -26,6 +33,7 @@ public class AddTripFragment extends Fragment {
     private DatabaseHelper dbHelper = null;
     private SQLiteDatabase db = null;
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.add_trip_fragment, container, false);
 
@@ -63,6 +71,55 @@ public class AddTripFragment extends Fragment {
                 txtNotes.setText("");
                 txtStartDate.setText("");
                 txtEndDate.setText("");
+            }
+        });
+
+        txtStartDate.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction() & MotionEvent.ACTION_MASK;
+
+                if (action == MotionEvent.ACTION_DOWN) {
+                    final Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR);
+                    int mMonth = c.get(Calendar.MONTH);
+                    int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            txtStartDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
+                        }
+                    }, mYear, mMonth, mDay);
+                    dpd.show();
+                }
+
+                return true;
+            }
+        });
+
+        txtEndDate.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction() & MotionEvent.ACTION_MASK;
+
+                if (action == MotionEvent.ACTION_DOWN) {
+                    final Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR);
+                    int mMonth = c.get(Calendar.MONTH);
+                    int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            txtEndDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
+                        }
+                    }, mYear, mMonth, mDay);
+
+                    dpd.show();
+                }
+
+                return true;
             }
         });
 
